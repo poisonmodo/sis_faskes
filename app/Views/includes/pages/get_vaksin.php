@@ -57,7 +57,7 @@
         $("#yabtn").click(function() {
             $("#modal-delete").modal('hide');
             $.ajax({
-                url:'<?php echo site_url('ajax/students/del') ?>',
+                url:'<?php echo site_url('ajax/vaksin/del') ?>',
                 cache:false,
                 dataType:'JSON',
                 type:"post",
@@ -70,7 +70,7 @@
                         subtitle: '',
                         body: data.message
                     }) 
-                    setTimeout('location.href="<?php echo site_url('master/students') ?>"',3000)
+                    setTimeout('location.href="<?php echo site_url('master/vaksin') ?>"',3000)
 
                 }
             })    

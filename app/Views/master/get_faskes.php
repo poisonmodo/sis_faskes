@@ -16,7 +16,7 @@ $uri = service('uri');
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item">Master</li>
-                        <li class="breadcrumb-item">Daftar Dosen</li>
+                        <li class="breadcrumb-item">Daftar Faskes</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -31,7 +31,7 @@ $uri = service('uri');
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Dosen</h3>
+                            <h3 class="card-title">Faskes</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -46,12 +46,12 @@ $uri = service('uri');
                                     setTimeout('location.href="<?php echo site_url($uri->getSegment(1)."/".$uri->getSegment(2)) ?>"',3000)
                                 </script>
                         <?php   } ?>        
-                                <form method="post" action="<?php echo site_url('master/lecturers') ?>" id="frmlist">
+                                <form method="post" action="<?php echo site_url('master/faskes') ?>" id="frmlist">
                                     <input type="hidden" name="delall" id="delall" value="1">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary" name="addbtn" id="addbtn1" onclick='location.href="<?php echo site_url('master/lecturers/add') ?>"'>Tambah Dosen</button>
-                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn1" value="del">Hapus Dosen</button>
+                                            <button type="button" class="btn btn-primary" name="addbtn" id="addbtn1" onclick='location.href="<?php echo site_url('master/faskes/add') ?>"'>Tambah Faskes</button>
+                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn1" value="del">Hapus Faskes</button>
                                         </div>
                                     </div>
                                     <table id="example1" class="table table-bordered table-striped">
@@ -60,29 +60,44 @@ $uri = service('uri');
                                                 <th class="col-sm-1">
                                                     <input type="checkbox" id="chkall1" class="chkall" value="1">
                                                 </th>
-                                                <th class="col-sm-3">NIK</th>
-                                                <th class="col-sm-3">Nama Dosen</th>
+                                                <th class="col-sm-3">Tipe Faskes</th>
+                                                <th class="col-sm-3">Nama Faskes</th>
+                                                <th class="col-sm-3">Alamat Faskes</th>
                                                 <th class="col-sm-3">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                    <?php if ($lecturerlist) {
+                                    <?php if ($faskeslist) {
                                                 $i=1;
                                                 // $generator = new Barcode\BarcodeGeneratorHTML();
-                                                foreach ($lecturerlist as $lecturer) : ?>
+                                                foreach ($faskeslist as $faskes) : 
+                                                    switch($faskes->faskes_type) {
+                                                        case 1: //Puskesmas
+                                                            $ket="Puskesmas";
+                                                        break;
+                                                        case 2: //Rumah Sakit
+                                                            $ket="Rumah Sakit";
+                                                        break;
+                                                        case 3: //Puskesmas
+                                                            $ket="Klinik";
+                                                        break;    
+                                                    }?>
                                                     <tr>
                                                         <td>
-                                                            <input type="checkbox" name="chkbox[]" id="chkbox<?php echo $i ?>" class="chkbox" value="<?php echo $lecturer->id ?>">
+                                                            <input type="checkbox" name="chkbox[]" id="chkbox<?php echo $i ?>" class="chkbox" value="<?php echo $faskes->id ?>">
                                                         </td>
                                                         <td>
-                                                            <?php echo $lecturer->nik ?>
+                                                            <?php echo $ket ?>
                                                         </td>
                                                         <td>
-                                                            <?php echo $lecturer->nama_dosen ?>
+                                                            <?php echo $faskes->faskes_name ?>
                                                         </td>
                                                         <td>
-                                                            <a href="<?php echo site_url('master/lecturers/edit/'.$lecturer->id) ?>" data-toggle="tooltip" title="Edit Data Mahasiswa"><i class="fa fa-edit"></i></a>
-                                                            <a href="#"  title="Hapus Dosen" id="<?php echo $lecturer->id ?>" class="delbtn" onclick="return false;"><i class="fa fa-minus-square"></i></a>    
+                                                            <?php echo $faskes->faskes_address ?>
+                                                        </td>
+                                                        <td>
+                                                            <a href="<?php echo site_url('master/faskes/edit/'.$faskes->id) ?>" data-toggle="tooltip" title="Edit Data Mahasiswa"><i class="fa fa-edit"></i></a>
+                                                            <a href="#"  title="Hapus Faskes" id="<?php echo $faskes->id ?>" class="delbtn" onclick="return false;"><i class="fa fa-minus-square"></i></a>    
                                                         </td>   
                                                     </tr>
                                     <?php 
@@ -100,15 +115,16 @@ $uri = service('uri');
                                             <th>
                                                 <input type="checkbox" id="chkall2" class="chkal2" value="1">
                                             </th>
-                                            <th class="col-sm-3">NIK</th>
-                                            <th class="col-sm-3">Nama Dosen</th>
+                                            <th class="col-sm-3">Tipe Faskes</th>
+                                            <th class="col-sm-3">Nama Faskes</th>
+                                            <th class="col-sm-3">Alamat Faskes</th>
                                             <th class="col-sm-3">Aksi</th>
                                         </tfoot>
                                     </table>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary" name="addbtn2" id="addbtn2" onclick='location.href="<?php echo site_url('master/lecturers/add') ?>"'>Tambah Dosen</button>
-                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn2" value="del">Hapus Dosen</button>
+                                            <button type="button" class="btn btn-primary" name="addbtn2" id="addbtn2" onclick='location.href="<?php echo site_url('master/faskes/add') ?>"'>Tambah Faskes</button>
+                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn2" value="del">Hapus Faskes</button>
                                         </div>
                                     </div>
                                 </form>
@@ -116,7 +132,7 @@ $uri = service('uri');
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header bg-primary">
-                                                <h4 class="modal-title">Hapus Dosen</h4>
+                                                <h4 class="modal-title">Hapus Faskes</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -124,7 +140,7 @@ $uri = service('uri');
                                             <div class="modal-body">
                                                 <form id="frmdel">
                                                     <input type="hidden" name="cat_id" id="id_delete" value="">
-                                                    <p>Apakah Anda yakin hapus dosen?</p>
+                                                    <p>Apakah Anda yakin hapus Faskes?</p>
                                                 </form>
                                             </div>
                                             <div class="modal-footer justify-content-between">
@@ -140,13 +156,13 @@ $uri = service('uri');
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header bg-primary">
-                                                <h4 class="modal-title">Hapus Dosen</h4>
+                                                <h4 class="modal-title">Hapus Faskes</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Apakah Anda yakin hapus Dosen ini?</p>
+                                                <p>Apakah Anda yakin hapus Faskes ini?</p>
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>

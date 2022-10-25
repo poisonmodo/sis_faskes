@@ -16,8 +16,8 @@ $request = service('request');
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item">Master</li>
-                        <li class="breadcrumb-item">Dosen</li>
-                        <li class="breadcrumb-item active">Edit Dosen</li>
+                        <li class="breadcrumb-item">Vaksin</li>
+                        <li class="breadcrumb-item active">Edit Vaksin</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -32,7 +32,7 @@ $request = service('request');
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Edit Dosen</h3>
+                            <h3 class="card-title">Edit Vaksin</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -41,22 +41,22 @@ $request = service('request');
                                 $msg= session()->getFlashdata('success');
                                 unset($_SESSION["success"]);
                                 if(!isset($msg)) { ?>
-                                <form method="post" action="<?php echo site_url('master/lecturers/edit/'.$id) ?>">
+                                <form method="post" action="<?php echo site_url('master/vaksin/edit/'.$id) ?>" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <label for="nik">NIK <span class="required">*</span></label>
-                                        <input type="text" readonly="readonly" name="nik" class="form-control <?php echo (isset($err["nik"])) ? "is-invalid" : "" ?>" id="nik" placeholder="Silakan isi nik" value="<?php echo $lecturer->nik ?>">
-                                        <?php echo (isset($err["nik"])) ? '<span class="error-invalid-feedback">' . $err["nik"] . '</span>' : "" ?>
+                                        <label for="vaksin_type">Tipe Vaksin <span class="required">*</span></label>
+                                        <input type="text" name="vaksin_type" class="form-control <?php echo (isset($err["vaksin_type"])) ? "is-invalid" : "" ?>" id="vaksin_type"  placeholder="Silakan isi vaksin_type" value="<?php echo $vaksin->vaksin_type ?>">
+                                        <?php echo (isset($err["vaksin_type"])) ? '<span class="error-invalid-feedback">' . $err["vaksin_type"] . '</span>' : "" ?>
                                     </div>
                                     <div class="form-group">
-                                        <label for="nama_dosen">Nama Dosen <span class="required">*</span></label>
-                                        <input type="text" name="nama_dosen" class="form-control <?php echo (isset($err["nama_dosen"])) ? "is-invalid" : "" ?>" id="nama_dosen" placeholder="Silakan isi Nama Dosen" value="<?php echo $lecturer->nama_dosen ?>">
-                                        <?php echo (isset($err["nama_dosen"])) ? '<span class="error-invalid-feedback">' . $err["nama_dosen"] . '</span>' : "" ?>
+                                        <label for="vaksin_name">Nama Vaksin <span class="required">*</span></label>
+                                        <input type="text" name="vaksin_name" class="form-control <?php echo (isset($err["vaksin_name"])) ? "is-invalid" : "" ?>" id="vaksin_name" placeholder="Silakan isi Nama Vaksin" value="<?php echo $vaksin->vaksin_name ?>">
+                                        <?php echo (isset($err["vaksin_name"])) ? '<span class="error-invalid-feedback">' . $err["vaksin_name"] . '</span>' : "" ?>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" name="editbtn" id="editbtn" value="update">Update Dosen</button>
-                                        <button type="button" class="btn btn-danger" name="backbtn" id="backbtn2" value="back" onclick='location.href="<?php echo site_url('master/lecturers') ?>"'>Kembali</button>
+                                        <button type="submit" class="btn btn-primary" name="editbtn" id="editbtn" value="Update">Update Vaksin</button>
+                                        <button type="button" class="btn btn-danger" name="backbtn" id="backbtn2" value="back" onclick='location.href="<?php echo site_url('master/vaksin') ?>"'>Kembali</button>
                                         <p>
-                                            <span class="required">*</span> Wajib diisi
+                                            <span class="required">*</span> Wajib   
                                         <p>
                                     </div>
                                 </form>

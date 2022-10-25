@@ -9,6 +9,169 @@ class MasterController extends AppController
 		//return view('welcome_message');
 	}
 
+	public function edit_faskes($id)
+	{
+		helper('url');
+		$uri = service('uri');
+		$MasterModel = new \App\Models\MasterModel();
+		$validation = \Config\Services::validation();
+		//print_r($CategoryModel->get_category());
+		$faskes = $MasterModel->get_faskes_detail($id);
+		if ($this->request->getPost('editbtn')) {
+			$dat = $this->request->getPost();
+			$validation->setRules([
+				'faskes_type' => 'required',
+				'faskes_name' => 'required',
+				'faskes_address' => 'required',
+				'faskes_phone' => 'required',
+				'city_id' => 'required'
+			], [
+				"faskes_type" => [
+					"required" => "Silakan isi Tipe Faskes"
+				],
+				"faskes_name" => [
+					"required" => "Silakan isi Nama Faskes"
+				],
+				"faskes_address" => [
+					"required" => "Silakan isi Alamat Faskes"
+				],
+				"faskes_phone" => [
+					"required" => "Silakan isi No Telepon Faskes"
+				],
+				"city_id" => [
+					"required" => "Silakan isi kota"
+				],
+			]);
+
+			if (!$validation->withRequest($this->request)->run()) {
+				//print_r($validation->getErrors());
+				// 	$resp = array(
+				// 		"is_error" => 1,
+				// 		"message" => "Silakan isi Nama Category"
+				// 	);
+				session()->setFlashdata('errors', $validation->getErrors());
+			}
+			else {
+				$dat["id"]=$id;
+				$MasterModel->edit_faskes($dat);
+				session()->setFlashdata('success', "Faskes berhasil diupdate");
+			}
+			redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2)."/".$uri->getSegment(3));
+		}
+		
+
+		$citylist = $MasterModel->get_city_select();
+		$data = [
+			"page" => "edit_faskes",
+			"site_name" => $this->settings["SITENAME"],
+			"footer" => $this->settings["FOOTER"],
+			"uname" => $this->viewdata["uname"],
+			"id" => $id,
+			"citylist" => $citylist,
+			"faskes" => $faskes
+
+		];
+		return view('master/edit_faskes',$data);
+	}
+
+	public function add_faskes()
+	{
+		helper('url');
+		helper('form');
+		$uri = service('uri');
+		$MasterModel = new \App\Models\MasterModel();
+		$validation = \Config\Services::validation();
+		
+		if ($this->request->getPost('addbtn')) {
+			$dat = $this->request->getPost();
+			$validation->setRules([
+				'faskes_type' => 'required',
+				'faskes_name' => 'required',
+				'faskes_address' => 'required',
+				'faskes_phone' => 'required',
+				'city_id' => 'required'
+			], [
+				"faskes_type" => [
+					"required" => "Silakan isi Tipe Faskes"
+				],
+				"faskes_name" => [
+					"required" => "Silakan isi Nama Faskes"
+				],
+				"faskes_address" => [
+					"required" => "Silakan isi Alamat Faskes"
+				],
+				"faskes_phone" => [
+					"required" => "Silakan isi No Telepon Faskes"
+				],
+				"city_id" => [
+					"required" => "Silakan isi kota"
+				],
+			]);
+
+			if (!$validation->withRequest($this->request)->run()) {
+				//print_r($validation->getErrors());
+				// 	$resp = array(
+				// 		"is_error" => 1,
+				// 		"message" => "Silakan isi Nama Category"
+				// 	);
+				session()->setFlashdata('errors', $validation->getErrors());
+			}
+			else {
+				
+				$MasterModel->add_faskes($dat);
+				session()->setFlashdata('success', "Faskes berhasil ditambahkan");
+			}
+			redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2)."/".$uri->getSegment(3));
+		}
+		
+
+		$citylist = $MasterModel->get_city_select();
+		$data = [
+			"site_name" => $this->settings["SITENAME"],
+			"footer" => $this->settings["FOOTER"],
+			"uname" => $this->viewdata["uname"],
+			"page" => "add_faskes",
+			"citylist" => $citylist
+			
+		];
+		return view('master/add_faskes',$data);
+	}
+
+	public function get_faskes()
+	{
+		$MasterModel = new \App\Models\MasterModel();
+		
+		helper('url');
+		$uri = service('uri');
+		
+		if($this->request->getPost('delall')) {
+			$dat = $this->request->getPost();
+			$faskes_id_list =$dat["chkbox"];
+			//print_r($catlist);
+			$n = count($faskes_id_list);
+			if($n>0) {
+				for($a=0;$a<$n;$a++) {
+					$MasterModel->delete_faskes($faskes_id_list[$a]);
+					
+				}
+				session()->setFlashdata('success', "Faskes berhasil dihapus");
+				redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2));
+			}
+		}
+
+		$faskeslist = $MasterModel->get_faskes();
+		$data = [
+			"page" => "get_faskes",
+			"site_name" => $this->settings["SITENAME"],
+			"footer" => $this->settings["FOOTER"],
+			"uname" => $this->viewdata["uname"],
+			
+			"faskeslist" => $faskeslist
+
+		];
+		return view('master/get_faskes',$data);
+	}
+
 
 	public function edit_city($id)
 	{
@@ -315,7 +478,7 @@ class MasterController extends AppController
 					$MasterModel->delete_vaksin($vaksin_id_list[$a]);
 					
 				}
-				session()->setFlashdata('success', "Mahasiswa berhasil dihapus");
+				session()->setFlashdata('success', "Vaksin berhasil dihapus");
 				redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2));
 			}
 		}
@@ -334,7 +497,7 @@ class MasterController extends AppController
 		return view('master/get_vaksins',$data);
 	}
 
-	public function add_collegevaksin()
+	public function add_vaksin()
 	{
 		helper('url');
 		helper('form');
@@ -346,50 +509,16 @@ class MasterController extends AppController
 		if ($this->request->getPost('addbtn')) {
 			$dat = $this->request->getPost();
 			$validation->setRules([
-				'nim' => 'required|is_unique[mahasiswa.nim]',
-				'nama_mahasiswa' => 'required',
-				'jenis_kelamin' => 'required',
-				'no_identitas' => 'required',
-				'tempat_lahir' => 'required',
-				'tgl_lahir' => 'required',
-				'nama_ortu' => 'required',
-				'alamat_ortu'	=> 'required',
-				'Kota_id' => 'required',
-				'tahun_akademik' => 'required',
+				'vaksin_type' => 'required',
+				'vaksin_name' => 'required',
 			], [
-				"nim" => [
-					"required" => "Silakan isi NIM Mahasiswa",
-					"is_unique" => "NIM mahasiswa harus unik",
-					"integer" => "Gunakan Angka"
+				"vaksin_type" => [
+					"required" => "Silakan isi Tipe Vaksin",
 				],
-				"nama_mahasiswa" => [
-					"required" => "Silakan isi Nama Mahasiswa"
+				"vaksin_name" => [
+					"required" => "Silakan isi Nama Vaksin"
 				],
-				"no_identitas" => [
-					"required" => "Silakan isi No KTP"
-				],
-				"jenis_kelamin" => [
-					"required" => "Silakan isi Jenis Kelamin"
-				],
-				"tempat_lahir" => [
-					"required" => "Silakan isi Tempat Lahir"
-				],
-				"tgl_lahir" => [
-					"required" => "Silakan isi Tanggal Lahir"
-				],
-				"nama_ortu" => [
-					"required" => "Silakan isi Nama Orang Tua/Wali"
-				],
-				"alamat_ortu" => [
-					"required" => "Silakan isi Alamat Orang Tua/Wali"
-				],
-				"Kota_id" => [
-					"required" => "Silakan isi Kota"
-				],
-				"tahun_akademik" => [
-					"required" => "Silakan isi Tahun Akademik"
-				]							
-
+				
 			]);
 
 			if (!$validation->withRequest($this->request)->run()) {
@@ -403,33 +532,30 @@ class MasterController extends AppController
 			else {
 				$photo="";
 				
-				if($_FILES["photo"]["name"]) {
-					$photo=$_FILES["photo"];
-				}
-				else {
-					$photo="";
-				}
-				$MasterModel->add_vaksins($dat,$photo);
-				session()->setFlashdata('success', "Mahasiswa berhasil ditambahkan");
+				// if($_FILES["photo"]["name"]) {
+				// 	$photo=$_FILES["photo"];
+				// }
+				// else {
+				// 	$photo="";
+				// }
+				$MasterModel->add_vaksin($dat,$photo);
+				session()->setFlashdata('success', "Vaksin berhasil ditambahkan");
 			}
 			redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2)."/".$uri->getSegment(3));
 		}
 		
 
-		$Kotalist = $MasterModel->get_city_select(); 
 		$data = [
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			
-			"Kotalist" => $Kotalist,
 			"page" => "add_vaksin"
 
 		];
-		return view('master/add_vaksins',$data);
+		return view('master/add_vaksin',$data);
 	}
 
-	public function edit_collegevaksin($id)
+	public function edit_vaksin($id)
 	{
 		helper('url');
 		$uri = service('uri');
@@ -440,48 +566,15 @@ class MasterController extends AppController
 		if ($this->request->getPost('editbtn')) {
 			$dat = $this->request->getPost();
 			$validation->setRules([
-				'nim' => 'required',
-				'nama_mahasiswa' => 'required',
-				'jenis_kelamin' => 'required',
-				'no_identitas' => 'required',
-				'tempat_lahir' => 'required',
-				'tgl_lahir' => 'required',
-				'nama_ortu' => 'required',
-				'alamat_ortu'	=> 'required',
-				'Kota_id' => 'required',
-				'tahun_akademik' => 'required',
+				'vaksin_type' => 'required',
+				'vaksin_name' => 'required',
 			], [
-				"nim" => [
-					"required" => "Silakan isi NIM Mahasiswa",
-					"integer" => "Gunakan Angka"
+				"vaksin_type" => [
+					"required" => "Silakan isi Tipe Vaksin",
 				],
-				"nama_mahasiswa" => [
-					"required" => "Silakan isi Nama Mahasiswa"
-				],
-				"no_identitas" => [
-					"required" => "Silakan isi No KTP"
-				],
-				"jenis_kelamin" => [
-					"required" => "Silakan isi Jenis Kelamin"
-				],
-				"tempat_lahir" => [
-					"required" => "Silakan isi Tempat Lahir"
-				],
-				"tgl_lahir" => [
-					"required" => "Silakan isi Tanggal Lahir"
-				],
-				"nama_ortu" => [
-					"required" => "Silakan isi Nama Orang Tua/Wali"
-				],
-				"alamat_ortu" => [
-					"required" => "Silakan isi Alamat Orang Tua/Wali"
-				],
-				"Kota_id" => [
-					"required" => "Silakan isi Kota"
-				],
-				"tahun_akademik" => [
-					"required" => "Silakan isi Tahun Akademik"
-				]							
+				"vaksin_name" => [
+					"required" => "Silakan isi Nama Vaksin"
+				],							
 
 			]);
 
@@ -496,20 +589,19 @@ class MasterController extends AppController
 			else {
 				$photo="";
 				
-				if($_FILES["photo"]["name"]) {
-					$photo=$_FILES["photo"];
-				}
-				else {
-					$photo="";
-				}
+				// if($_FILES["photo"]["name"]) {
+				// 	$photo=$_FILES["photo"];
+				// }
+				// else {
+				// 	$photo="";
+				// }
 				$dat["id"]=$id;
-				$MasterModel->edit_vaksins($dat,$photo);
-				session()->setFlashdata('success', "Data Mahasiswa berhasil diupdate");
+				$MasterModel->edit_vaksin($dat);
+				session()->setFlashdata('success', "Data Vaksin berhasil diupdate");
 			}
 			redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2)."/".$uri->getSegment(3));
 		}
 		
-		$Kotalist = $MasterModel->get_city_select(); 
 		$vaksin = $MasterModel->get_vaksin_detail($id);
 		$data = [
 			"page" => "edit_vaksin",
@@ -519,10 +611,9 @@ class MasterController extends AppController
 			
 			"id" => $id,
 			"vaksin" => $vaksin,
-			"Kotalist" => $Kotalist
-
+			
 		];
-		return view('master/edit_vaksins',$data);
+		return view('master/edit_vaksin',$data);
 	}
 
 	//--------------------------------------------------------------------

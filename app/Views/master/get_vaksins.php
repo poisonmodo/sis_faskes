@@ -84,7 +84,7 @@ $uri = service('uri');
                                                             <?php echo $vaksin->vaksin_type ?>
                                                         </td>
                                                         <td>
-                                                            <?php echo $vaksin->nama_vaksin ?>
+                                                            <?php echo $vaksin->vaksin_name ?>
                                                         </td>
                                                         <td>
                                                             <a href="<?php echo site_url('master/vaksin/edit/'.$vaksin->id) ?>" data-toggle="tooltip" title="Edit Data Vaksin"><i class="fa fa-edit"></i></a>

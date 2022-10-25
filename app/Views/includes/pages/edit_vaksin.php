@@ -5,9 +5,9 @@
 <script src="<?php echo site_url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') ?>"></script>
 <script>
 	$(function() {
-		$("#tgl_lahir").datetimepicker({
-			format: 'L',
-			date: '<?php echo $student->tgl_lahir ?>'
-		});
+		// $("#tgl_lahir").datetimepicker({
+		// 	format: 'L',
+		// 	date: '<?php echo $student->tgl_lahir ?>'
+		// });
 	})
 </script>

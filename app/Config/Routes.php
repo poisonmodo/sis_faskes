@@ -42,7 +42,7 @@ $routes->group('ajax', function ($routes) {
 	$routes->add('student/detail', 'AjaxController::get_student_detail');
 	$routes->add('student/list', 'AjaxController::get_student_list');
 	$routes->add('yudisium/del', 'AjaxController::delete_yudisium');
-	$routes->add('students/del', 'AjaxController::delete_student');
+	$routes->add('vaksin/del', 'AjaxController::delete_vaksin');
 	$routes->add('province/del', 'AjaxController::delete_province');
 });
 
@@ -58,22 +58,6 @@ $routes->group('management', function ($routes) {
 
 });
 
-$routes->group('baak', function ($routes) {
-	$routes->add('ijazah/edit/(:any)/(:num)', 'YudisiumController::edit_ijazah/$1/$2');
-	$routes->add('ijazah/add/(:any)', 'YudisiumController::add_ijazah/$1');
-	$routes->add('ijazah/(:any)', 'YudisiumController::get_ijazah/$1');
-	$routes->add('checklist/edit/(:num)/(:num)', 'SkripsiController::edit_checklist/$1/$2');
-	$routes->add('checklist/add/(:num)', 'SkripsiController::add_checklist/$1');
-	$routes->add('checklist/(:num)', 'SkripsiController::get_checklist/$1');
-	$routes->add('payment/edit/(:num)/(:num)', 'PaymentController::edit_payment/$1/$2');
-	$routes->add('payment/add/(:num)', 'PaymentController::add_payment/$1');
-	$routes->add('payment/(:num)', 'PaymentController::get_payment/$1');
-	$routes->add('yudisium/edit/(:any)/(:num)', 'YudisiumController::edit_yudisium/$1/$2');
-	$routes->add('yudisium/add/(:any)', 'YudisiumController::add_yudisium/$1');
-	$routes->add('students/(:any)', 'YudisiumController::get_students/$1');
-	$routes->add('yudisium/(:any)', 'YudisiumController::get_yudisium/$1');
-});
-
 $routes->group('master', function ($routes) {
 	$routes->add('city/edit/(:num)', 'MasterController::edit_city/$1');
 	$routes->add('city/add', 'MasterController::add_city');
@@ -84,7 +68,9 @@ $routes->group('master', function ($routes) {
 	$routes->add('vaksin', 'MasterController::get_vaksin');
 	$routes->add('vaksin/edit/(:num)', 'MasterController::edit_vaksin/$1');
 	$routes->add('vaksin/add', 'MasterController::add_vaksin');
-	
+	$routes->add('faskes', 'MasterController::get_faskes');
+	$routes->add('faskes/edit/(:num)', 'MasterController::edit_faskes/$1');
+	$routes->add('faskes/add', 'MasterController::add_faskes');
 });
 
 $routes->add('changepassword', 'UsersController::chpass');

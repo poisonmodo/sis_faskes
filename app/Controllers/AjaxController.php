@@ -299,12 +299,12 @@ class AjaxController extends BaseController
 		exit();
     }
 	
-	public function delete_student()
+	public function delete_vaksin()
 	{
 		$MasterModel = new \App\Models\MasterModel();
 		$dat = $this->request->getPost();
 		
-		$hasil =$MasterModel->delete_student($dat["id"]);
+		$hasil =$MasterModel->delete_vaksin($dat["id"]);
 		if($hasil["is_error"]==0) {
 			echo json_encode(array(
 				"is_error" => 0,

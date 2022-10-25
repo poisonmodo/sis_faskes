@@ -46,7 +46,7 @@
                     class: 'bg-success',
                     title: '<?php echo $site_name ?>',
                     subtitle: '',
-                    body: 'Silakan Pilih Dosen yang Anda ingin hapus'
+                    body: 'Silakan Pilih Faskes yang Anda ingin hapus'
                     
                 }) 
             }
@@ -57,7 +57,7 @@
         $("#yabtn").click(function() {
             $("#modal-delete").modal('hide');
             $.ajax({
-                url:'<?php echo site_url('ajax/lecturers/del') ?>',
+                url:'<?php echo site_url('ajax/faskes/del') ?>',
                 cache:false,
                 dataType:'JSON',
                 type:"post",
@@ -70,7 +70,7 @@
                         subtitle: '',
                         body: data.message
                     }) 
-                    setTimeout('location.href="<?php echo site_url('master/lecturers') ?>"',3000)
+                    setTimeout('location.href="<?php echo site_url('master/faskSes') ?>"',3000)
 
                 }
             })    

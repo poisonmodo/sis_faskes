@@ -8,6 +8,79 @@ class MasterModel extends Model
 {
     // protected $table      = 'mahasiswa';
     // protected $primaryKey = 'id';
+
+    public function get_faskes_detail($id) {
+        $db = \Config\Database::connect();
+        $sql = "SELECT  
+                    *
+                FROM faskes
+                WHERE id='".$id."'";
+        $query = $db->query($sql);
+        $results = $query->getRow();
+        //print_r($results);
+        return $results;
+    }
+
+    public function delete_faskes($id) {
+        $db = \Config\Database::connect();
+        $sql ="DELETE FROM faskies
+               WHERE id='".$id."';";
+        $db->query($sql);
+        $result = array(
+            "is_error" => 0,
+            "message" => "Data Faskes berhasil dihapus"
+        );
+        return $result;
+    }
+
+    public function edit_faskes($data) {
+        $db = \Config\Database::connect();
+        $is_error=0;
+        $sql ="UPDATE faskes SET
+                    faskes_type='".$data["faskes_type"]."',
+                    faskes_name='".$db->escapeString($data["faskes_name"])."', 
+                    faskes_address='".$db->escapeString($data["faskes_address"])."',
+                    faskes_phone='".$db->escapeString($data["faskes_phone"])."',
+                    city_id='".$db->escapeString($data["city_id"])."' 
+               WHERE id='".$data["id"]."';";
+        //print_r($sql);       
+        $db->query($sql);
+        $result = array(
+            "is_error" => $is_error,
+            "message" => "Data Faskes berhasil diupdate"
+        );
+        return $result;
+    }
+
+	public function add_faskes($data) {
+        $db = \Config\Database::connect();
+        $is_error=0;
+        $sql ="INSERT INTO faskes SET
+                    faskes_type='".$data["faskes_type"]."',
+                    faskes_name='".$db->escapeString($data["faskes_name"])."', 
+                    faskes_address='".$db->escapeString($data["faskes_address"])."',
+                    faskes_phone='".$db->escapeString($data["faskes_phone"])."',
+                    city_id='".$db->escapeString($data["city_id"])."';";
+        $db->query($sql);
+        $result = array(
+            "is_error" => $is_error,
+            "message" => "Data Kota berhasil ditambahkan"
+        );
+        return $result;
+    }
+
+    public function get_faskes() {
+        $db = \Config\Database::connect();
+        $sql = "SELECT  
+                    faskes.*, cities.city
+                FROM faskes
+                LEFT JOIN cities ON cities.id=faskes.city_id";
+        $query = $db->query($sql);
+        $results = $query->getResult();
+        //print_r($results);
+        return $results;
+    }
+
 	
     public function get_city_detail($id) {
         $db = \Config\Database::connect();
@@ -28,7 +101,7 @@ class MasterModel extends Model
         $db->query($sql);
         $result = array(
             "is_error" => 0,
-            "message" => "Data Kota berhasil dihapus"
+            "message" => "Data Faskes berhasil dihapus"
         );
         return $result;
     }
@@ -73,6 +146,17 @@ class MasterModel extends Model
         $results = $query->getResult();
         //print_r($results);
         return $results;;
+    }
+
+    public function get_city_select() {
+        $db = \Config\Database::connect();
+        $sql = "SELECT  
+                    *
+                FROM cities";
+        $query = $db->query($sql);
+        $results = $query->getResult();
+        //print_r($results);
+        return $results;
     }
 
     public function get_province_select() {
@@ -192,7 +276,7 @@ class MasterModel extends Model
         $db = \Config\Database::connect();
         $sql = "SELECT  
                     *
-                FROM vakasin
+                FROM vaksin
                 WHERE id='".$id."'";
         $query = $db->query($sql);
         $results = $query->getRow();
