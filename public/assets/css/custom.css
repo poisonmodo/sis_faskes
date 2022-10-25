@@ -1,0 +1,50 @@
+.error-invalid-feedback {
+    color: #ff0000;
+    font-size: 12px;
+}
+
+.required {
+    color: #ff0000;
+    font-weight: bold;    
+}
+
+.notes li {
+    font-size: 14px;
+    padding-left: 0; 
+}
+
+#preview {
+    width: 30%;
+}
+
+.preview {
+    width: 120px;
+}
+
+.photo_yudisium {
+    width:30%;
+}
+
+.user-panel .logout {
+    display: inline-block;
+    position: relative;
+    left:66px;
+    padding: 5px 5px 5px 10px;
+}
+
+.login-box .card-header {
+    background-color:#007bff;
+    color: #fff
+}
+
+@media (max-width: 575.98px) { 
+    .login-box {
+        width: 285px;
+    }
+}
+
+@media (min-width: 1200px) { 
+    .login-box {
+        width: 660px;
+    }
+}
