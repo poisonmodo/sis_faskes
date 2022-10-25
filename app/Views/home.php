@@ -24,19 +24,32 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card-body">
-              <!-- <h5 class="card-title">Informasi</h5> -->
+        <!-- small box -->
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3>150</h3>
 
-              <img src="<?php echo site_url('images/foto_kampus_stmik_muhammadiyah4.png') ?>" width="100%"> 
-            </div>
+            <p>Faskes</p>
           </div>
-
-          
+          <div class="icon">
+            <i class="ion ion-bag"></i>
+          </div>
+          <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
         </div>
-        <!-- /.col-md-6 -->
+
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3>150</h3>
+
+            <p>Vaksin</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-bag"></i>
+          </div>
+          <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+        </div>
       </div>
+
       <!-- /.row -->
     </div><!-- /.container-fluid -->
   </div>

@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class AcademicController extends AppController
+class MasterController extends AppController
 {
 	public function index()
 	{
@@ -10,21 +10,25 @@ class AcademicController extends AppController
 	}
 
 
-	public function edit_jurusan($id)
+	public function edit_city($id)
 	{
 		helper('url');
 		$uri = service('uri');
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$validation = \Config\Services::validation();
 		//print_r($CategoryModel->get_category());
-		$jurusan = $CollegeStudentModel->get_jurusan_detail($id);
+		$city = $MasterModel->get_city_detail($id);
 		if ($this->request->getPost('editbtn')) {
 			$dat = $this->request->getPost();
 			$validation->setRules([
-				'jurusan' => 'required',
+				'province_id' => 'required',
+				'city' => 'required',
 			], [
-				"jurusan" => [
-					"required" => "Silakan isi Jurusan"
+				"province_id" => [
+					"required" => "Silakan isi Nama Provinsi"
+				],
+				"city" => [
+					"required" => "Silakan isi Kota"
 				],
 			]);
 
@@ -38,42 +42,46 @@ class AcademicController extends AppController
 			}
 			else {
 				$dat["id"]=$id;
-				$CollegeStudentModel->edit_jurusan($dat);
-				session()->setFlashdata('success', "Jurusan berhasil diupdate");
+				$MasterModel->edit_city($dat);
+				session()->setFlashdata('success', "Kota berhasil diupdate");
 			}
 			redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2)."/".$uri->getSegment(3));
 		}
 		
 
-
+		$provlist = $MasterModel->get_province_select();
 		$data = [
-			"page" => "edit_jurusan",
+			"page" => "edit_city",
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
 			"id" => $id,
-			"group_id" => $this->viewdata["group_id"],
-			"jurusan" => $jurusan
+			"provlist" => $provlist,
+			"city" => $city
 
 		];
-		return view('academics/edit_jurusan',$data);
+		return view('master/edit_city',$data);
 	}
 
-	public function add_jurusan()
+	public function add_city()
 	{
 		helper('url');
 		helper('form');
 		$uri = service('uri');
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$validation = \Config\Services::validation();
 		
 		if ($this->request->getPost('addbtn')) {
 			$dat = $this->request->getPost();
 			$validation->setRules([
-				'jurusan' => 'required'
+				'province_id' => 'required',
+				'city' => 'required'
 			], [
-				"jurusan" => [
-					"required" => "Silakan isi Nama Jurusan"
+				"province_id" => [
+					"required" => "Silakan isi Nama Provinsi"
+				],
+				"city" => [
+					"required" => "Silakan isi Nama Kota"
 				],
 				
 			]);
@@ -88,113 +96,114 @@ class AcademicController extends AppController
 			}
 			else {
 				
-				$CollegeStudentModel->add_jurusan($dat);
-				session()->setFlashdata('success', "Jurusan berhasil ditambahkan");
+				$MasterModel->add_city($dat);
+				session()->setFlashdata('success', "Kota berhasil ditambahkan");
 			}
 			redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2)."/".$uri->getSegment(3));
 		}
 		
 
-
+		$provlist = $MasterModel->get_province_select();
 		$data = [
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			"page" => "add_jurusan",
-			"group_id" => $this->viewdata["group_id"],
+			"page" => "add_city",
+			"provlist" => $provlist
+			
 		];
-		return view('academics/add_jurusan',$data);
+		return view('master/add_city',$data);
 	}
 	
-	public function get_jurusan()
+	public function get_city()
 	{
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		
 		helper('url');
 		$uri = service('uri');
 		
 		if($this->request->getPost('delall')) {
 			$dat = $this->request->getPost();
-			$jurusan_id_list =$dat["chkbox"];
+			$city_id_list =$dat["chkbox"];
 			//print_r($catlist);
-			$n = count($jurusan_id_list);
+			$n = count($city_id_list);
 			if($n>0) {
 				for($a=0;$a<$n;$a++) {
-					$CollegeStudentModel->delete_jurusan($jurusan_id_list[$a]);
+					$MasterModel->delete_city($city_id_list[$a]);
 					
 				}
-				session()->setFlashdata('success', "Jurusan berhasil dihapus");
+				session()->setFlashdata('success', "Kota berhasil dihapus");
 				redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2));
 			}
 		}
 
 		//print_r($CategoryModel->get_category());
-		$jurusanlist = $CollegeStudentModel->get_jurusan();
+		$Kotalist = $MasterModel->get_cities();
 		$data = [
-			"page" => "jurusanlist",
+			"page" => "get_city",
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			"group_id" => $this->viewdata["group_id"],
-			"jurusanlist" => $jurusanlist
+			
+			"citylist" => $Kotalist
 
 		];
-		return view('academics/get_jurusan',$data);
+		return view('master/get_city',$data);
 	}
 
-	public function get_document()
+	public function get_province()
 	{
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		
 		helper('url');
 		$uri = service('uri');
 		
 		if($this->request->getPost('delall')) {
 			$dat = $this->request->getPost();
-			$lectuers_id_list =$dat["chkbox"];
+			$province_id_list =$dat["chkbox"];
 			//print_r($catlist);
-			$n = count($lectuers_id_list);
+			$n = count($province_id_list);
 			if($n>0) {
 				for($a=0;$a<$n;$a++) {
-					$CollegeStudentModel->delete_document($lectuers_id_list[$a]);
+					$MasterModel->delete_province($province_id_list[$a]);
 					
 				}
-				session()->setFlashdata('success', "Dokumen berhasil dihapus");
+				session()->setFlashdata('success', "Provinsi berhasil dihapus");
 				redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2));
 			}
 		}
 
 		//print_r($CategoryModel->get_category());
-		$docslist = $CollegeStudentModel->get_documents();
+		$provlist = $MasterModel->get_provinces();
 		$data = [
-			"page" => "documentlist",
+			"page" => "get_provinces",
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			"group_id" => $this->viewdata["group_id"],
-			"docslist" => $docslist
+			
+			"provlist" => $provlist
 
 		];
-		return view('academics/get_document',$data);
+		return view('master/get_province',$data);
 	}
 
-	public function add_documents()
+	public function add_province()
 	{
 		helper('url');
 		helper('form');
 		$uri = service('uri');
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$validation = \Config\Services::validation();
 		//print_r($CategoryModel->get_category());
-		//$lecturerslist = $CollegeStudentModel->get_lecturers();
+		//$lecturerslist = $MasterModel->get_lecturers();
 		if ($this->request->getPost('addbtn')) {
 			$dat = $this->request->getPost();
 			$validation->setRules([
-				'nama_dokumen' => 'required',
+				'province' => 'required',
 			], [
-				"nama_dokumen" => [
-					"required" => "Silakan isi Nama Dokumen"
-				],
+				"province" => [
+					"required" => "Silakan isi Nama Provinsi"
+				]
 			]);
 
 			if (!$validation->withRequest($this->request)->run()) {
@@ -213,8 +222,8 @@ class AcademicController extends AppController
 				// else {
 				// 	$photo="";
 				// }
-				$CollegeStudentModel->add_documents($dat);
-				session()->setFlashdata('success', "Dokumen berhasil ditambahkan");
+				$MasterModel->add_province($dat);
+				session()->setFlashdata('success', "Provinsi berhasil ditambahkan");
 			}
 			redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2)."/".$uri->getSegment(3));
 		}
@@ -225,28 +234,28 @@ class AcademicController extends AppController
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			"group_id" => $this->viewdata["group_id"],
-			"page" => "add_documents",
+			
+			"page" => "add_province",
 
 		];
-		return view('academics/add_documents',$data);
+		return view('master/add_province',$data);
 	}
 
-	public function edit_documents($id)
+	public function edit_province($id)
 	{
 		helper('url');
 		$uri = service('uri');
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$validation = \Config\Services::validation();
 		//print_r($CategoryModel->get_category());
-		$docs_list = $CollegeStudentModel->get_documents_detail($id);
+		$prov_list = $MasterModel->get_province_detail($id);
 		if ($this->request->getPost('editbtn')) {
 			$dat = $this->request->getPost();
 			$validation->setRules([
-				'nama_dokumen' => 'required',
+				'province' => 'required',
 			], [
-				"nama_dokumen" => [
-					"required" => "Silakan isi Nama Dokumen"
+				"province" => [
+					"required" => "Silakan isi Provinsi"
 				]
 
 			]);
@@ -268,8 +277,8 @@ class AcademicController extends AppController
 				// 	$photo="";
 				// }
 				$dat["id"]=$id;
-				$CollegeStudentModel->edit_documents($dat);
-				session()->setFlashdata('success', "Dokumen berhasil diupdate");
+				$MasterModel->edit_province($dat);
+				session()->setFlashdata('success', "Provinsi berhasil diupdate");
 			}
 			redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2)."/".$uri->getSegment(3));
 		}
@@ -277,33 +286,33 @@ class AcademicController extends AppController
 
 
 		$data = [
-			"page" => "edit_documents",
+			"page" => "edit_province",
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			"group_id" => $this->viewdata["group_id"],
+			
 			"id" => $id,
-			"docs" => $docs_list
+			"prov" => $prov_list
 
 		];
-		return view('academics/edit_documents',$data);
+		return view('master/edit_province',$data);
 	}
 
-	public function get_collegestudent()
+	public function get_vaksin()
 	{
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		
 		helper('url');
 		$uri = service('uri');
 		
 		if($this->request->getPost('delall')) {
 			$dat = $this->request->getPost();
-			$student_id_list =$dat["chkbox"];
+			$vaksin_id_list =$dat["chkbox"];
 			//print_r($catlist);
-			$n = count($student_id_list);
+			$n = count($vaksin_id_list);
 			if($n>0) {
 				for($a=0;$a<$n;$a++) {
-					$CollegeStudentModel->delete_student($student_id_list[$a]);
+					$MasterModel->delete_vaksin($vaksin_id_list[$a]);
 					
 				}
 				session()->setFlashdata('success', "Mahasiswa berhasil dihapus");
@@ -312,28 +321,28 @@ class AcademicController extends AppController
 		}
 
 		//print_r($CategoryModel->get_category());
-		$studentlist = $CollegeStudentModel->get_student();
+		$vaksinlist = $MasterModel->get_vaksin();
 		$data = [
-			"page" => "studentlist",
+			"page" => "get_vaksin",
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			"group_id" => $this->viewdata["group_id"],
-			"studentlist" => $studentlist
+			
+			"vaksinlist" => $vaksinlist
 
 		];
-		return view('academics/get_students',$data);
+		return view('master/get_vaksins',$data);
 	}
 
-	public function add_collegestudent()
+	public function add_collegevaksin()
 	{
 		helper('url');
 		helper('form');
 		$uri = service('uri');
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$validation = \Config\Services::validation();
 		//print_r($CategoryModel->get_category());
-		$studentlist = $CollegeStudentModel->get_student();
+		$vaksinlist = $MasterModel->get_vaksin();
 		if ($this->request->getPost('addbtn')) {
 			$dat = $this->request->getPost();
 			$validation->setRules([
@@ -345,7 +354,7 @@ class AcademicController extends AppController
 				'tgl_lahir' => 'required',
 				'nama_ortu' => 'required',
 				'alamat_ortu'	=> 'required',
-				'jurusan_id' => 'required',
+				'Kota_id' => 'required',
 				'tahun_akademik' => 'required',
 			], [
 				"nim" => [
@@ -374,8 +383,8 @@ class AcademicController extends AppController
 				"alamat_ortu" => [
 					"required" => "Silakan isi Alamat Orang Tua/Wali"
 				],
-				"jurusan_id" => [
-					"required" => "Silakan isi jurusan"
+				"Kota_id" => [
+					"required" => "Silakan isi Kota"
 				],
 				"tahun_akademik" => [
 					"required" => "Silakan isi Tahun Akademik"
@@ -400,31 +409,31 @@ class AcademicController extends AppController
 				else {
 					$photo="";
 				}
-				$CollegeStudentModel->add_students($dat,$photo);
+				$MasterModel->add_vaksins($dat,$photo);
 				session()->setFlashdata('success', "Mahasiswa berhasil ditambahkan");
 			}
 			redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2)."/".$uri->getSegment(3));
 		}
 		
 
-		$jurusanlist = $CollegeStudentModel->get_jurusan_select(); 
+		$Kotalist = $MasterModel->get_city_select(); 
 		$data = [
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			"group_id" => $this->viewdata["group_id"],
-			"jurusanlist" => $jurusanlist,
-			"page" => "add_student"
+			
+			"Kotalist" => $Kotalist,
+			"page" => "add_vaksin"
 
 		];
-		return view('academics/add_students',$data);
+		return view('master/add_vaksins',$data);
 	}
 
-	public function edit_collegestudent($id)
+	public function edit_collegevaksin($id)
 	{
 		helper('url');
 		$uri = service('uri');
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$validation = \Config\Services::validation();
 		//print_r($CategoryModel->get_category());
 		
@@ -439,7 +448,7 @@ class AcademicController extends AppController
 				'tgl_lahir' => 'required',
 				'nama_ortu' => 'required',
 				'alamat_ortu'	=> 'required',
-				'jurusan_id' => 'required',
+				'Kota_id' => 'required',
 				'tahun_akademik' => 'required',
 			], [
 				"nim" => [
@@ -467,8 +476,8 @@ class AcademicController extends AppController
 				"alamat_ortu" => [
 					"required" => "Silakan isi Alamat Orang Tua/Wali"
 				],
-				"jurusan_id" => [
-					"required" => "Silakan isi jurusan"
+				"Kota_id" => [
+					"required" => "Silakan isi Kota"
 				],
 				"tahun_akademik" => [
 					"required" => "Silakan isi Tahun Akademik"
@@ -494,26 +503,26 @@ class AcademicController extends AppController
 					$photo="";
 				}
 				$dat["id"]=$id;
-				$CollegeStudentModel->edit_students($dat,$photo);
+				$MasterModel->edit_vaksins($dat,$photo);
 				session()->setFlashdata('success', "Data Mahasiswa berhasil diupdate");
 			}
 			redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2)."/".$uri->getSegment(3));
 		}
 		
-		$jurusanlist = $CollegeStudentModel->get_jurusan_select(); 
-		$student = $CollegeStudentModel->get_student_detail($id);
+		$Kotalist = $MasterModel->get_city_select(); 
+		$vaksin = $MasterModel->get_vaksin_detail($id);
 		$data = [
-			"page" => "edit_student",
+			"page" => "edit_vaksin",
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			"group_id" => $this->viewdata["group_id"],
+			
 			"id" => $id,
-			"student" => $student,
-			"jurusanlist" => $jurusanlist
+			"vaksin" => $vaksin,
+			"Kotalist" => $Kotalist
 
 		];
-		return view('academics/edit_students',$data);
+		return view('master/edit_vaksins',$data);
 	}
 
 	//--------------------------------------------------------------------

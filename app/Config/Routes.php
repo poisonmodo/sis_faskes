@@ -38,12 +38,12 @@ $routes->group('ajax', function ($routes) {
 	$routes->add('payment/del', 'AjaxController::delete_payment');
 	$routes->add('skripsi/dosen/del', 'AjaxController::delete_skripsi_dosen');
 	$routes->add('student/nim', 'AjaxController::get_student_by_nim');
-	$routes->add('jurusan/del', 'AjaxController::delete_jurusan');
+	$routes->add('city/del', 'AjaxController::delete_city');
 	$routes->add('student/detail', 'AjaxController::get_student_detail');
 	$routes->add('student/list', 'AjaxController::get_student_list');
 	$routes->add('yudisium/del', 'AjaxController::delete_yudisium');
 	$routes->add('students/del', 'AjaxController::delete_student');
-	$routes->add('documents/del', 'AjaxController::delete_documents');
+	$routes->add('province/del', 'AjaxController::delete_province');
 });
 
 $routes->group('export', function ($routes) {
@@ -75,18 +75,16 @@ $routes->group('baak', function ($routes) {
 });
 
 $routes->group('master', function ($routes) {
-	$routes->add('documents/edit/(:num)', 'AcademicController::edit_documents/$1');
-	$routes->add('documents/add', 'AcademicController::add_documents');
-	$routes->add('documents', 'AcademicController::get_document');
-	$routes->add('jurusan/edit/(:num)', 'AcademicController::edit_jurusan/$1');
-	$routes->add('jurusan/add', 'AcademicController::add_jurusan');
-	$routes->add('jurusan', 'AcademicController::get_jurusan');
-	$routes->add('lecturers', 'AcademicController::get_lecturers');
-	$routes->add('lecturers/edit/(:num)', 'AcademicController::edit_lecturers/$1');
-	$routes->add('lecturers/add', 'AcademicController::add_lecturers');
-	$routes->add('students', 'AcademicController::get_collegestudent');
-	$routes->add('students/edit/(:num)', 'AcademicController::edit_collegestudent/$1');
-	$routes->add('students/add', 'AcademicController::add_collegestudent');
+	$routes->add('city/edit/(:num)', 'MasterController::edit_city/$1');
+	$routes->add('city/add', 'MasterController::add_city');
+	$routes->add('city', 'MasterController::get_city');
+	$routes->add('province/edit/(:num)', 'MasterController::edit_province/$1');
+	$routes->add('province/add', 'MasterController::add_province');
+	$routes->add('province', 'MasterController::get_province');
+	$routes->add('vaksin', 'MasterController::get_vaksin');
+	$routes->add('vaksin/edit/(:num)', 'MasterController::edit_vaksin/$1');
+	$routes->add('vaksin/add', 'MasterController::add_vaksin');
+	
 });
 
 $routes->add('changepassword', 'UsersController::chpass');

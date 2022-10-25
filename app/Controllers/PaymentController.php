@@ -15,7 +15,7 @@ class PaymentController extends AppController
 		helper('form');
 		$uri = service('uri');
 		$PaymentModel = new \App\Models\PaymentModel();
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$LecturersModel = new \App\Models\LecturersModel();
 		$validation = \Config\Services::validation();
 		//print_r($CategoryModel->get_category());
@@ -66,7 +66,7 @@ class PaymentController extends AppController
 			"uname" => $this->viewdata["uname"],
 			"skripsi_id" => $skripsi_id,
 			"id" => $id,
-			"group_id" => $this->viewdata["group_id"],
+			
 			"page" => "edit_payment",
 			"paramlist" => $paramlist,
 			"payment" => $detail
@@ -80,7 +80,7 @@ class PaymentController extends AppController
 		helper('form');
 		$uri = service('uri');
 		$PaymentModel = new \App\Models\PaymentModel();
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$LecturersModel = new \App\Models\LecturersModel();
 		$validation = \Config\Services::validation();
 		//print_r($CategoryModel->get_category());
@@ -129,7 +129,7 @@ class PaymentController extends AppController
 			"uname" => $this->viewdata["uname"],
 			"skripsi_id" => $skripsi_id,
 			"page" => "add_payment",
-			"group_id" => $this->viewdata["group_id"],
+			
 			"paramlist" => $paramlist
 		];
 		return view('baak/add_payment',$data);
@@ -168,7 +168,7 @@ class PaymentController extends AppController
 			"infoskripsi" => $infoskripsi,
 			"skripsi_id" => $skripsi_id,
             "paymentlist" => $paymentlist,
-			"group_id" => $this->viewdata["group_id"],
+			
 		];
         return view('baak/get_payment',$data);
     }

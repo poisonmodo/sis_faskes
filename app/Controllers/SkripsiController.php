@@ -14,7 +14,7 @@ class SkripsiController extends AppController
 		helper('url');
 		helper('form');
 		$uri = service('uri');
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$validation = \Config\Services::validation();
 		
 		if ($this->request->getPost('addbtn')) {
@@ -46,21 +46,21 @@ class SkripsiController extends AppController
 			}
 			else {
 				
-				$CollegeStudentModel->add_ijazah($dat);
+				$MasterModel->add_ijazah($dat);
 				session()->setFlashdata('success', "Jiazah berhasil ditambahkan");
 			}
 			redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2)."/".$uri->getSegment(3)."/".$uri->getSegment(4));
 		}
 		
 
-		$mhs = $CollegeStudentModel->get_student_select();
+		$mhs = $MasterModel->get_student_select();
 		$data = [
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
 			"page" => "add_jiazah",
 			"mhslist" =>  $mhs,
-			"group_id" => $this->viewdata["group_id"],
+			
 		];
 		return view('baak/add_jiazah',$data);
 	}
@@ -93,7 +93,7 @@ class SkripsiController extends AppController
 			"uname" => $this->viewdata["uname"],
             "dosenlist" => $dosenlist,
 			"page" => "skripsi_dosen_list",
-			"group_id" => $this->viewdata["group_id"],
+			
 			"skripsi_id" => $id,
 			"infoskripsi" => $infoskripsi
 		];
@@ -106,7 +106,7 @@ class SkripsiController extends AppController
 		helper('form');
 		$uri = service('uri');
 		$SkripsiModel = new \App\Models\SkripsiModel();
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$LecturersModel = new \App\Models\LecturersModel();
 		$validation = \Config\Services::validation();
 		//print_r($CategoryModel->get_category());
@@ -158,7 +158,7 @@ class SkripsiController extends AppController
 			"uname" => $this->viewdata["uname"],
 			"dosenlist" => $dosenlist,
 			"id" => $id,
-			"group_id" => $this->viewdata["group_id"],
+			
 			"page" => "add_skripsi_dosen",
 			"infoskripsi" => $infoskripsi
 		];
@@ -171,7 +171,7 @@ class SkripsiController extends AppController
 		helper('form');
 		$uri = service('uri');
 		$SkripsiModel = new \App\Models\SkripsiModel();
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$LecturersModel = new \App\Models\LecturersModel();
 		$validation = \Config\Services::validation();
 		//print_r($CategoryModel->get_category());
@@ -227,7 +227,7 @@ class SkripsiController extends AppController
 			"dosen_skripsi" => $dosen_skripsi,
 			"skripsi_id" => $skripsi_id,
 			"id" => $id,
-			"group_id" => $this->viewdata["group_id"],
+			
 			"page" => "edit_skripsi_dosen",
 			"infoskripsi" => $infoskripsi
 		];
@@ -239,7 +239,7 @@ class SkripsiController extends AppController
 		helper('url');
 		$uri = service('uri');
 		$SkripsiModel = new \App\Models\SkripsiModel();
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$LecturersModel = new \App\Models\LecturersModel();
 		$validation = \Config\Services::validation();
 		//print_r($CategoryModel->get_category());
@@ -288,7 +288,7 @@ class SkripsiController extends AppController
 		// print_r($skripsi);
 		// exit();
 		$dosenlist = $LecturersModel->get_lecturer_select();
-		$mhs = $CollegeStudentModel->get_student_select();
+		$mhs = $MasterModel->get_student_select();
 		$data = [
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
@@ -297,7 +297,7 @@ class SkripsiController extends AppController
 			"dosenlist" => $dosenlist,
 			"skripsi" => $skripsi,
 			"mhslist" => $mhs,
-			"group_id" => $this->viewdata["group_id"],
+			
 			"page" => "edit_skripsi",
 		];
 		return view('baak/edit_skripsi',$data);
@@ -309,7 +309,7 @@ class SkripsiController extends AppController
 		helper('form');
 		$uri = service('uri');
 		$SkripsiModel = new \App\Models\SkripsiModel();
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$LecturersModel = new \App\Models\LecturersModel();
 		$validation = \Config\Services::validation();
 		//print_r($CategoryModel->get_category());
@@ -354,8 +354,8 @@ class SkripsiController extends AppController
 		
 
 		$dosenlist = $LecturersModel->get_lecturer_select();
-		$studentlist = $CollegeStudentModel->get_student_select(); 
-		$mhs = $CollegeStudentModel->get_student_select();
+		$studentlist = $MasterModel->get_student_select(); 
+		$mhs = $MasterModel->get_student_select();
 		$data = [
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
@@ -363,7 +363,7 @@ class SkripsiController extends AppController
 			"dosenlist" => $dosenlist,
 			"studentlist" => $studentlist,
 			"mhslist" => $mhs,
-			"group_id" => $this->viewdata["group_id"],
+			
 			"page" => "add_skripsi",
 		];
 		return view('baak/add_skripsi',$data);
@@ -395,7 +395,7 @@ class SkripsiController extends AppController
 			"uname" => $this->viewdata["uname"],
             "skripsilist" => $skripsilist,
 			"page" => "skripsilist",
-			"group_id" => $this->viewdata["group_id"],
+			
 		];
         return view('baak/get_skripsi',$data);
     }
@@ -418,7 +418,7 @@ class SkripsiController extends AppController
 			"jml_param" => $jml_param,
 			"page" => "checklist",
 			"infoskripsi" => $infoskripsi,
-			"group_id" => $this->viewdata["group_id"],
+			
 			"skripsi_id" => $skripsi_id
 		];
         return view('baak/get_checklist',$data);
@@ -430,7 +430,7 @@ class SkripsiController extends AppController
 		helper('form');
 		$uri = service('uri');
 		$CheckListModel= new \App\Models\CheckListModel();
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$SkripsiModel = new \App\Models\SkripsiModel();
 		$infoskripsi = $SkripsiModel->get_skripsi_detail($skripsi_id);
 		//	print_r($infoskripsi);
@@ -483,7 +483,7 @@ class SkripsiController extends AppController
 			"uname" => $this->viewdata["uname"],
 			"page" => "add_checklist",
 			"skripsi_id" => $skripsi_id,
-			"group_id" => $this->viewdata["group_id"],
+			
 			"paramlist" => $paramlist
 		];
 		return view('baak/add_checklist',$data);
@@ -495,7 +495,7 @@ class SkripsiController extends AppController
 		helper('form');
 		$uri = service('uri');
 		$CheckListModel= new \App\Models\CheckListModel();
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$SkripsiModel = new \App\Models\SkripsiModel();
 		$infoskripsi = $SkripsiModel->get_skripsi_detail($skripsi_id);
 		$validation = \Config\Services::validation();
@@ -548,7 +548,7 @@ class SkripsiController extends AppController
 			"paramlist" => $paramlist,
 			"detail" => $detail,
 			"id" => $id,
-			"group_id" => $this->viewdata["group_id"],
+			
 			"skripsi_id" => $skripsi_id
 		];
 		return view('baak/edit_checklist',$data);

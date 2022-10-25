@@ -16,8 +16,8 @@ $request = service('request');
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item">Master</li>
-                        <li class="breadcrumb-item">Dokumen</li>
-                        <li class="breadcrumb-item active">Tambah Dokumen</li>
+                        <li class="breadcrumb-item">Provinsi</li>
+                        <li class="breadcrumb-item active">Tambah Provinsi</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -32,7 +32,7 @@ $request = service('request');
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Tambah Dokumen</h3>
+                            <h3 class="card-title">Tambah Provinsi</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -41,19 +41,15 @@ $request = service('request');
                                 $msg= session()->getFlashdata('success');
                                 unset($_SESSION["success"]);
                                 if(!isset($msg)) { ?>
-                                <form method="post" action="<?php echo site_url('master/documents/add') ?>">
+                                <form method="post" action="<?php echo site_url('master/province/add') ?>">
                                     <div class="form-group">
-                                        <label for="nama_dokumen">Nama Dokumen <span class="required">*</span></label>
-                                        <input type="text" name="nama_dokumen" class="form-control <?php echo (isset($err["nama_dokumen"])) ? "is-invalid" : "" ?>" id="nama_dokumen" placeholder="Silakan isi Nama Dokumen" value="<?php echo set_value('nama_dokumen','') ?>">
-                                        <?php echo (isset($err["nama_dokumen"])) ? '<span class="error-invalid-feedback">' . $err["nama_dokumen"] . '</span>' : "" ?>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="deskripsi">Deskripsi</label>
-                                        <textarea name="deskripsi" class="form-control" id="deskripsi" placeholder="Silakan isi Deskripsi"><?php echo set_value('deskripsi','') ?></textarea>
+                                        <label for="province">Nama Provinsi <span class="required">*</span></label>
+                                        <input type="text" name="province" class="form-control <?php echo (isset($err["province"])) ? "is-invalid" : "" ?>" id="province" placeholder="Silakan isi Nama Provinsi" value="<?php echo set_value('province','') ?>">
+                                        <?php echo (isset($err["province"])) ? '<span class="error-invalid-feedback">' . $err["province"] . '</span>' : "" ?>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" name="addbtn" id="addbtn" value="add">Tambah Dokumen</button>
-                                        <button type="button" class="btn btn-danger" name="backbtn" id="backbtn2" value="back" onclick='location.href="<?php echo site_url('master/documents') ?>"'>Kembali</button>
+                                        <button type="submit" class="btn btn-primary" name="addbtn" id="addbtn" value="add">Tambah Provinsi</button>
+                                        <button type="button" class="btn btn-danger" name="backbtn" id="backbtn2" value="back" onclick='location.href="<?php echo site_url('master/province') ?>"'>Kembali</button>
                                         <p>
                                             <span class="required">*</span> Wajib diisi
                                         <p>

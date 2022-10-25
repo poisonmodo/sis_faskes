@@ -14,7 +14,7 @@ class YudisiumController extends AppController
 		helper('url');
 		$uri = service('uri');
 		$YudisiumModel = new \App\Models\YudisiumModel();
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$validation = \Config\Services::validation();
 		//print_r($CategoryModel->get_category());
 		$ijazah = $YudisiumModel->get_ijazah_detail($id);
@@ -61,15 +61,15 @@ class YudisiumController extends AppController
 		}
 		
 		$dat["nim"]= $nim;
-		$student_name = $CollegeStudentModel->get_student_name($nim);
-		$mhslist = $CollegeStudentModel->get_student_select();
+		$student_name = $MasterModel->get_student_name($nim);
+		$mhslist = $MasterModel->get_student_select();
 		$data = [
 			"page" => "edit_ijazah",
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
 			"id" => $id,
-			"group_id" => $this->viewdata["group_id"],
+			
 			"ijazah" => $ijazah,
 			"mhslist" => $mhslist,
 			"nim" => $nim,
@@ -84,7 +84,7 @@ class YudisiumController extends AppController
 		helper('url');
 		helper('form');
 		$uri = service('uri');
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$YudisiumModel = new \App\Models\YudisiumModel();
 		$validation = \Config\Services::validation();
 		
@@ -130,14 +130,14 @@ class YudisiumController extends AppController
 			redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2)."/".$nim);
 		}
 		
-		$student_name = $CollegeStudentModel->get_student_name($nim);
-		$mhslist = $CollegeStudentModel->get_student_select();
+		$student_name = $MasterModel->get_student_name($nim);
+		$mhslist = $MasterModel->get_student_select();
 		$data = [
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
 			"page" => "add_ijazah",
-			"group_id" => $this->viewdata["group_id"],
+			
 			"mhslist" => $mhslist,
 			"nim" => $nim,
 			"student_name" => $student_name
@@ -148,7 +148,7 @@ class YudisiumController extends AppController
 	public function get_ijazah($nim)
 	{
 		$YudisiumModel = new \App\Models\YudisiumModel();
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 
 		helper('url');
 		$uri = service('uri');
@@ -170,13 +170,13 @@ class YudisiumController extends AppController
 
 		//print_r($CategoryModel->get_category());
 		$ijazahlist = $YudisiumModel->get_ijazah($nim);
-		$student_name = $CollegeStudentModel->get_student_name($nim);
+		$student_name = $MasterModel->get_student_name($nim);
 		$data = [
 			"page" => "ijazahlist",
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			"group_id" => $this->viewdata["group_id"],
+			
 			"ijazahlist" => $ijazahlist,
 			"nim" => $nim,
 			"student_name" => $student_name
@@ -191,7 +191,7 @@ class YudisiumController extends AppController
 		helper('url');
 		$uri = service('uri');
 		$YudisiumModel = new \App\Models\YudisiumModel();
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$validation = \Config\Services::validation();
 		//print_r($CategoryModel->get_category());
 		$yudisium = $YudisiumModel->get_yudisium_detail($id);
@@ -230,16 +230,16 @@ class YudisiumController extends AppController
 		}
 		
 		$dat["nim"]= $nim;
-		$student_name = $CollegeStudentModel->get_student_name($nim);
-		$mhslist = $CollegeStudentModel->get_student_select();
-		$docslist = $CollegeStudentModel->get_documents_select();
+		$student_name = $MasterModel->get_student_name($nim);
+		$mhslist = $MasterModel->get_student_select();
+		$docslist = $MasterModel->get_documents_select();
 		$data = [
 			"page" => "edit_yudisium",
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
 			"id" => $id,
-			"group_id" => $this->viewdata["group_id"],
+			
 			"yudisium" => $yudisium,
 			"docslist" => $docslist,
 			"mhslist" => $mhslist,
@@ -255,7 +255,7 @@ class YudisiumController extends AppController
 		helper('url');
 		helper('form');
 		$uri = service('uri');
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$YudisiumModel = new \App\Models\YudisiumModel();
 		$validation = \Config\Services::validation();
 		
@@ -292,15 +292,15 @@ class YudisiumController extends AppController
 			redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2)."/".$uri->getSegment(3));
 		}
 		
-		$student_name = $CollegeStudentModel->get_student_name($nim);
-		$mhslist = $CollegeStudentModel->get_student_select();
-		$docslist = $CollegeStudentModel->get_documents_select();
+		$student_name = $MasterModel->get_student_name($nim);
+		$mhslist = $MasterModel->get_student_select();
+		$docslist = $MasterModel->get_documents_select();
 		$data = [
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
 			"page" => "add_yudisium",
-			"group_id" => $this->viewdata["group_id"],
+			
 			"docslist" => $docslist,
 			"mhslist" => $mhslist,
 			"nim" => $nim,
@@ -312,7 +312,7 @@ class YudisiumController extends AppController
 	public function get_yudisium($nim)
 	{
 		$YudisiumModel = new \App\Models\YudisiumModel();
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 
 		helper('url');
 		$uri = service('uri');
@@ -334,13 +334,13 @@ class YudisiumController extends AppController
 
 		//print_r($CategoryModel->get_category());
 		$yudisiumlist = $YudisiumModel->get_yudisium($nim);
-		$student_name = $CollegeStudentModel->get_student_name($nim);
+		$student_name = $MasterModel->get_student_name($nim);
 		$data = [
 			"page" => "yudisiumlist",
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			"group_id" => $this->viewdata["group_id"],
+			
 			"yudisiumlist" => $yudisiumlist,
 			"nim" => $nim,
 			"student_name" => $student_name
@@ -351,19 +351,19 @@ class YudisiumController extends AppController
 
 	public function get_students($bagian)
 	{
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		
 		helper('url');
 		$uri = service('uri');
 		
 		//print_r($CategoryModel->get_category());
-		$studentlist = $CollegeStudentModel->get_student();
+		$studentlist = $MasterModel->get_student();
 		$data = [
 			"page" => "studentlist",
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			"group_id" => $this->viewdata["group_id"],
+			
 			"studentlist" => $studentlist,
 			"bagian" => $bagian
 

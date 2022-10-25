@@ -16,8 +16,8 @@ $request = service('request');
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item">Master</li>
-                        <li class="breadcrumb-item">Jurusan</li>
-                        <li class="breadcrumb-item active">Tambah Jurusan</li>
+                        <li class="breadcrumb-item">Kota</li>
+                        <li class="breadcrumb-item active">Edit Kota</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -32,7 +32,7 @@ $request = service('request');
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Tambah Jurusan</h3>
+                            <h3 class="card-title">Edit Kota</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -41,16 +41,28 @@ $request = service('request');
                                 $msg= session()->getFlashdata('success');
                                 unset($_SESSION["success"]);
                                 if(!isset($msg)) { ?>
-                                <form method="post" action="<?php echo site_url('master/jurusan/add') ?>">
-                                    <div class="form-group">
-                                        <label for="jurusan">Nama Jurusan <span class="required">*</span></label>
-                                        <input type="text" name="jurusan" class="form-control <?php echo (isset($err["jurusan"])) ? "is-invalid" : "" ?>" id="jurusan" placeholder="Silakan isi Nama Jurusan" value="<?php echo set_value('jurusan','') ?>">
-                                        <?php echo (isset($err["jurusan"])) ? '<span class="error-invalid-feedback">' . $err["jurusan"] . '</span>' : "" ?>
+                                <form method="post" action="<?php echo site_url('master/city/edit/'.$id) ?>">
+                                <div class="form-group">
+                                        <label for="Kota">Provinsi <span class="required">*</span></label>
+                                        <select class="form-control" name="province_id" id="province_id">
+											<option value="">Pilih Salah Salah Satu Provinsi</option>
+
+<?php if($provlist) { 
+	    foreach($provlist as $prov) { ?>
+											<option value="<?php echo $prov->id ?>" <?php echo ($prov->id==$city->province_id)?"selected='selected'":"" ?>><?php echo $prov->province ?></option>
+<?php 	}
+	  } ?>		
+										</select>
+                                        <?php echo (isset($err["province_id"])) ? '<span class="error-invalid-feedback">' . $err["province_id"] . '</span>' : "" ?>
                                     </div>
-                                   
+                                    <div class="form-group">
+                                        <label for="Kota">Nama Kota <span class="required">*</span></label>
+                                        <input type="text" name="city" class="form-control <?php echo (isset($err["city"])) ? "is-invalid" : "" ?>" id="city" placeholder="Silakan isi Nama Kota" value="<?php echo $city->city ?>">
+                                        <?php echo (isset($err["city"])) ? '<span class="error-invalid-feedback">' . $err["city"] . '</span>' : "" ?>
+                                    </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" name="addbtn" id="addbtn" value="add">Tambah Jurusan</button>
-                                        <button type="button" class="btn btn-danger" name="backbtn" id="backbtn2" value="back" onclick='location.href="<?php echo site_url('master/jurusan') ?>"'>Kembali</button>
+                                        <button type="submit" class="btn btn-primary" name="editbtn" id="editbtn" value="update">Update Kota</button>
+                                        <button type="button" class="btn btn-danger" name="backbtn" id="backbtn2" value="back" onclick='location.href="<?php echo site_url('master/city') ?>"'>Kembali</button>
                                         <p>
                                             <span class="required">*</span> Wajib diisi
                                         <p>

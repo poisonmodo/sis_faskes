@@ -34,7 +34,7 @@ class HomeController extends AppController
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			"group_id" => $this->viewdata["group_id"],
+			
 			"setuplist" => $setuplist
 
 		];	
@@ -49,7 +49,7 @@ class HomeController extends AppController
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			//"group_id" => $this->viewdata["group_id"],
+			//
 		];	
 		
 		return view('home',$data);

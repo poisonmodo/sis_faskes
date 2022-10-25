@@ -16,8 +16,8 @@ $request = service('request');
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item">Master</li>
-                        <li class="breadcrumb-item">Dokumen</li>
-                        <li class="breadcrumb-item active">Edit Dokumen</li>
+                        <li class="breadcrumb-item">Provinsi</li>
+                        <li class="breadcrumb-item active">Edit Provinsi</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -32,7 +32,7 @@ $request = service('request');
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Edit Dokumen</h3>
+                            <h3 class="card-title">Edit Provinsi</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -41,20 +41,15 @@ $request = service('request');
                                 $msg= session()->getFlashdata('success');
                                 unset($_SESSION["success"]);
                                 if(!isset($msg)) { ?>
-                                <form method="post" action="<?php echo site_url('master/documents/edit/'.$id) ?>">
+                                <form method="post" action="<?php echo site_url('master/province/edit/'.$id) ?>">
                                     <div class="form-group">
-                                        <label for="nama_dokumen">Nama Dokumen <span class="required">*</span></label>
-                                        <input type="text" name="nama_dokumen" class="form-control <?php echo (isset($err["nama_dokumen"])) ? "is-invalid" : "" ?>" id="nama_dokumen" placeholder="Silakan isi Nama Dokumen" value="<?php echo $docs->nama_dokumen ?>">
-                                        <?php echo (isset($err["nama_dokumen"])) ? '<span class="error-invalid-feedback">' . $err["nama_dokumen"] . '</span>' : "" ?>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="deskripsi">Deskripsi</label>
-                                        <textarea name="deskripsi" class="form-control" id="deskripsi" placeholder="Silakan isi Deskripsi"><?php echo $docs->deskripsi ?></textarea>
-                                        <?php echo (isset($err["deskripsi"])) ? '<span class="error-invalid-feedback">' . $err["deskripsi"] . '</span>' : "" ?>
+                                        <label for="province">Nama Provinsi <span class="required">*</span></label>
+                                        <input type="text" name="province" class="form-control <?php echo (isset($err["province"])) ? "is-invalid" : "" ?>" id="province" placeholder="Silakan isi Nama Provinsi" value="<?php echo $prov->province ?>">
+                                        <?php echo (isset($err["province"])) ? '<span class="error-invalid-feedback">' . $err["province"] . '</span>' : "" ?>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" name="editbtn" id="editbtn" value="update">Update Dokumen</button>
-                                        <button type="button" class="btn btn-danger" name="backbtn" id="backbtn2" value="back" onclick='location.href="<?php echo site_url('master/documents') ?>"'>Kembali</button>
+                                        <button type="submit" class="btn btn-primary" name="editbtn" id="editbtn" value="update">Update Provinsi</button>
+                                        <button type="button" class="btn btn-danger" name="backbtn" id="backbtn2" value="back" onclick='location.href="<?php echo site_url('master/province') ?>"'>Kembali</button>
                                         <p>
                                             <span class="required">*</span> Wajib diisi
                                         <p>

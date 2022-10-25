@@ -16,7 +16,7 @@ $uri = service('uri');
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item">Master</li>
-                        <li class="breadcrumb-item">Daftar Mahasiswa</li>
+                        <li class="breadcrumb-item">Daftar Kota</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -31,7 +31,7 @@ $uri = service('uri');
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Mahasiswa </h3>
+                            <h3 class="card-title">Kota</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -46,60 +46,44 @@ $uri = service('uri');
                                     setTimeout('location.href="<?php echo site_url($uri->getSegment(1)."/".$uri->getSegment(2)) ?>"',3000)
                                 </script>
                         <?php   } ?>        
-                                <form method="post" action="<?php echo site_url('master/students') ?>" id="frmlist">
+                                <form method="post" action="<?php echo site_url('master/city') ?>" id="frmlist">
                                     <input type="hidden" name="delall" id="delall" value="1">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary" name="addbtn" id="addbtn1" onclick='location.href="<?php echo site_url('master/students/add') ?>"'>Tambah Mahasiswa</button>
-                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn1" value="del">Hapus Mahasiswa</button>
+                                            <button type="button" class="btn btn-primary" name="addbtn" id="addbtn1" onclick='location.href="<?php echo site_url('master/city/add') ?>"'>Tambah Kota</button>
+                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn1" value="del">Hapus Kota</button>
                                         </div>
                                     </div>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>
+                                                <th class="col-sm-1">
                                                     <input type="checkbox" id="chkall1" class="chkall" value="1">
                                                 </th>
-                                                <th>NIM</th>
-                                                <th>Nama Mahasiswa</th>
-                                                <th>Jenis Kelamin</th>
-                                                <th>Jurusan</th>
-                                                <th>Tahun Akademik</th>
-                                                <th>Aksi</th>
+                                                <th class="col-sm-5">Provinsi</th>
+                                                <th class="col-sm-5">Kota</th>
+                                                <th class="col-sm-2">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                    <?php if ($studentlist) {
+                                    <?php if ($citylist) {
                                                 $i=1;
-                                                foreach ($studentlist as $student) : 
-                                                    if($student->jenis_kelamin==1) {
-                                                        $ket = "Pria";
-                                                    }
-                                                    else if($student->jenis_kelamin==2) {
-                                                        $ket = "Wanita";
-                                                    } 
-                                                    ?>
+                                                // $generator = new Barcode\BarcodeGeneratorHTML();
+                                                foreach ($citylist as $Kota) : ?>
                                                     <tr>
                                                         <td>
-                                                            <input type="checkbox" name="chkbox[]" id="chkbox<?php echo $i ?>" class="chkbox" value="<?php echo $student->id ?>">
+                                                            <input type="checkbox" name="chkbox[]" id="chkbox<?php echo $i ?>" class="chkbox" value="<?php echo $Kota->id ?>">
                                                         </td>
                                                         <td>
-                                                            <?php echo $student->nim ?>
+                                                            <?php echo $Kota->province ?>
                                                         </td>
                                                         <td>
-                                                            <?php echo $student->nama_lengkap ?>
+                                                            <?php echo $Kota->city ?>
                                                         </td>
                                                         <td>
-                                                            <?php echo $ket ?>
-                                                        </td>
-                                                        <td><?php echo $student->jurusan ?></td>
-                                                        <td>
-                                                            <?php echo $student->tahun_akademik ?>
-                                                        </td>
-                                                        <td>
-                                                            <a href="<?php echo site_url('master/students/edit/'.$student->id) ?>" data-toggle="tooltip" title="Edit Data Mahasiswa"><i class="fa fa-edit"></i></a>
-                                                            <a href="#"  title="Hapus Mahasiswa" id="<?php echo $student->id ?>" class="delbtn" onclick="return false;"><i class="fa fa-minus-square"></i></a>    
-                                                        </td>   
+                                                            <a href="<?php echo site_url('master/city/edit/'.$Kota->id) ?>" data-toggle="tooltip" title="Edit Kota"><i class="fa fa-edit"></i></a>
+                                                            <a href="#"  title="Hapus Kota" id="<?php echo $Kota->id ?>" class="delbtn" onclick="return false;"><i class="fa fa-minus-square"></i></a>    
+                                                        </td>   	
                                                     </tr>
                                     <?php 
                                                     $i++;    
@@ -107,27 +91,24 @@ $uri = service('uri');
                                           }
                                           else {  ?>
                                                     <tr>
-                                                        <td colspan="9" class="text-center">Data tidak ditemukan</td>
+                                                        <td colspan="4" class="text-center">Data tidak ditemukan</td>
                                                         
                                                     </tr>
                                     <?php } ?>      
                                         </tbody>
                                         <tfoot>
-                                            <th class="col-sm-1">
-                                                    <input type="checkbox" id="chkall2" class="chkal2" value="1">
-                                                </th>
-                                                <th>NIM</th>
-                                                <th>Nama Mahasiswa</th>
-                                                <th>Jenis Kelamin</th>
-                                                <th>Jurusan</th>
-                                                <th>Tahun Akademik</th>
-                                                <th>Aksi</th>
+                                            <th>
+												<input type="checkbox" id="chkall2" class="chkal2" value="1">
+											</th>
+											<th>Provinsi</th>
+                                            <th>Kota</th>
+											<th>Aksi</th>
                                         </tfoot>
-                                    </table>    
+                                    </table>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary" name="addbtn2" id="addbtn2" onclick='location.href="<?php echo site_url('master/students/add') ?>"'>Tambah Mahasiswa</button>
-                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn2" value="del">Hapus Mahasiswa</button>
+                                            <button type="button" class="btn btn-primary" name="addbtn2" id="addbtn2" onclick='location.href="<?php echo site_url('master/city/add') ?>"'>Tambah Kota</button>
+                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn2" value="del">Hapus Kota</button>
                                         </div>
                                     </div>
                                 </form>
@@ -135,7 +116,7 @@ $uri = service('uri');
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header bg-primary">
-                                                <h4 class="modal-title">Hapus Mahasiswa</h4>
+                                                <h4 class="modal-title">Hapus Kota</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -143,7 +124,7 @@ $uri = service('uri');
                                             <div class="modal-body">
                                                 <form id="frmdel">
                                                     <input type="hidden" name="cat_id" id="id_delete" value="">
-                                                    <p>Apakah Anda yakin hapus mahasiswa?</p>
+                                                    <p>Apakah Anda yakin hapus Kota?</p>
                                                 </form>
                                             </div>
                                             <div class="modal-footer justify-content-between">
@@ -159,13 +140,13 @@ $uri = service('uri');
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header bg-primary">
-                                                <h4 class="modal-title">Hapus Mahasiswa</h4>
+                                                <h4 class="modal-title">Hapus Kota</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Apakah Anda yakin hapus mahasiswa ini?</p>
+                                                <p>Apakah Anda yakin hapus Kota ini?</p>
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
