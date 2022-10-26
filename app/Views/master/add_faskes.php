@@ -68,6 +68,19 @@ $request = service('request');
                                         <?php echo (isset($err["faskes_phone"])) ? '<span class="error-invalid-feedback">' . $err["faskes_phone"] . '</span>' : "" ?>
                                     </div>
                                     <div class="form-group">
+                                        <label for="province_id">Propinsi <span class="required">*</span></label>
+                                        <select class="form-control" name="province_id" id="province_id">
+											<option value="">Pilih Salah Salah Satu Propinsi</option>
+
+<?php if($prolist) { 
+	    foreach($prolist as $pro) { ?>
+											<option value="<?php echo $pro->id ?>" <?php echo ($pro->id==set_value('province_id'))?"selected='selected'":"" ?>><?php echo $pro->province ?></option>
+<?php 	}
+	  } ?>		
+										</select>
+                                        <?php echo (isset($err["province_id"])) ? '<span class="error-invalid-feedback">' . $err["province_id"] . '</span>' : "" ?>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="city_id">Kota <span class="required">*</span></label>
                                         <select class="form-control" name="city_id" id="city_id">
 											<option value="">Pilih Salah Salah Satu Kota</option>

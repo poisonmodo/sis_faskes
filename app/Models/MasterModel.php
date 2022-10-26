@@ -54,6 +54,7 @@ class MasterModel extends Model
                     faskes_name='".$db->escapeString($data["faskes_name"])."', 
                     faskes_address='".$db->escapeString($data["faskes_address"])."',
                     faskes_phone='".$db->escapeString($data["faskes_phone"])."',
+                    province_id='".$db->escapeString($data["province_id"])."',
                     city_id='".$db->escapeString($data["city_id"])."' 
                WHERE id='".$data["id"]."';";
         //print_r($sql);       
@@ -73,6 +74,7 @@ class MasterModel extends Model
                     faskes_name='".$db->escapeString($data["faskes_name"])."', 
                     faskes_address='".$db->escapeString($data["faskes_address"])."',
                     faskes_phone='".$db->escapeString($data["faskes_phone"])."',
+                    province_id='".$db->escapeString($data["province_id"])."',
                     city_id='".$db->escapeString($data["city_id"])."';";
         $db->query($sql);
         $result = array(

@@ -24,6 +24,7 @@ class MasterController extends AppController
 				'faskes_name' => 'required',
 				'faskes_address' => 'required',
 				'faskes_phone' => 'required',
+				'province_id' => 'required',
 				'city_id' => 'required'
 			], [
 				"faskes_type" => [
@@ -37,6 +38,9 @@ class MasterController extends AppController
 				],
 				"faskes_phone" => [
 					"required" => "Silakan isi No Telepon Faskes"
+				],
+				"province_id" => [
+					"required" => "Silakan isi Provinsi"
 				],
 				"city_id" => [
 					"required" => "Silakan isi kota"
@@ -59,7 +63,7 @@ class MasterController extends AppController
 			redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2)."/".$uri->getSegment(3));
 		}
 		
-
+		$prolist = $MasterModel->get_province_select();
 		$citylist = $MasterModel->get_city_select();
 		$data = [
 			"page" => "edit_faskes",
@@ -68,6 +72,7 @@ class MasterController extends AppController
 			"uname" => $this->viewdata["uname"],
 			"id" => $id,
 			"citylist" => $citylist,
+			"prolist" => $prolist,
 			"faskes" => $faskes
 
 		];
@@ -89,6 +94,7 @@ class MasterController extends AppController
 				'faskes_name' => 'required',
 				'faskes_address' => 'required',
 				'faskes_phone' => 'required',
+				'province_id' => 'required',
 				'city_id' => 'required'
 			], [
 				"faskes_type" => [
@@ -102,6 +108,9 @@ class MasterController extends AppController
 				],
 				"faskes_phone" => [
 					"required" => "Silakan isi No Telepon Faskes"
+				],
+				"province_id" => [
+					"required" => "Silakan isi Provinsi"
 				],
 				"city_id" => [
 					"required" => "Silakan isi kota"
@@ -125,13 +134,15 @@ class MasterController extends AppController
 		}
 		
 
+		$prolist = $MasterModel->get_province_select();
 		$citylist = $MasterModel->get_city_select();
 		$data = [
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
 			"page" => "add_faskes",
-			"citylist" => $citylist
+			"citylist" => $citylist,
+			"prolist" => $prolist
 			
 		];
 		return view('master/add_faskes',$data);

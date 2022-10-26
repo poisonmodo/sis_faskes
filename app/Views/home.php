@@ -25,31 +25,104 @@
     <div class="container-fluid">
       <div class="row">
         <!-- small box -->
-        <div class="small-box bg-info">
-          <div class="inner">
-            <h3>150</h3>
-
-            <p>Faskes</p>
-          </div>
-          <div class="icon">
-            <i class="ion ion-bag"></i>
-          </div>
-          <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+        <div class="col-lg-6">
+          <!--- faskes //-->
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th class="col-sm-1">
+                        #
+                </th>
+                <th class="col-sm-10">Tipe Faskes</th>
+                <th class="col-sm-1">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+        <?php if ($faskes_count) {
+                    $i=1;
+                    // $generator = new Barcode\BarcodeGeneratorHTML();
+                    foreach ($faskes_count as $faskes) : 
+                      switch($faskes->faskes_type) {
+                        case 1: //Puskesmas
+                            $ket="Puskesmas";
+                        break;
+                        case 2: //Rumah Sakit
+                            $ket="Rumah Sakit";
+                        break;
+                        case 3: //Puskesmas
+                            $ket="Klinik";
+                        break;    
+                    }?>
+                    
+              <tr>
+                <td  class="text-right"s>
+                  <?php echo $i ?>
+                </td>
+                <td>
+                  <?php echo $ket ?>
+                </td>
+                <td  class="text-right">
+                  <?php echo $faskes->jml ?>
+                </td>
+              </tr>
+        <?php 
+                        $i++;    
+                    endforeach;
+              }
+              else {  ?>
+              <tr>
+                  <td colspan="4" class="text-center">Data tidak ditemukan</td>
+                  
+              </tr>
+        <?php } ?>      
+            </tbody>
+            
+          </table>
         </div>
-
-        <div class="small-box bg-info">
-          <div class="inner">
-            <h3>150</h3>
-
-            <p>Vaksin</p>
-          </div>
-          <div class="icon">
-            <i class="ion ion-bag"></i>
-          </div>
-          <!-- <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+        <!--- vaksin //-->        
+        <div class="col-lg-6">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th class="col-sm-1">
+                        #
+                </th>
+                <th class="col-sm-10">Vaksin</th>
+                <th class="col-sm-1">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+        <?php if ($vaksin_count) {
+                    $i=1;
+                    // $generator = new Barcode\BarcodeGeneratorHTML();
+                    foreach ($vaksin_count as $vaksin) : ?>
+                    
+              <tr>
+                <td  class="text-right">
+                  <?php echo $i ?>
+                </td>
+                <td>
+                  <?php echo $vaksin->vaksin_name ?>
+                </td>
+                <td class="text-right">
+                  <?php echo $vaksin->jml ?>
+                </td>
+              </tr>
+        <?php 
+                        $i++;    
+                    endforeach;
+              }
+              else {  ?>
+              <tr>
+                  <td colspan="4" class="text-center">Data tidak ditemukan</td>
+                  
+              </tr>
+        <?php } ?>      
+            </tbody>
+            
+          </table>
         </div>
       </div>
-
       <!-- /.row -->
     </div><!-- /.container-fluid -->
   </div>

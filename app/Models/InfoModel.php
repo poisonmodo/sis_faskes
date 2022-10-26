@@ -23,6 +23,31 @@ class InfoModel extends Model
         return $results;;
     }
 
+    public function get_faskes_count() {
+        $db = \Config\Database::connect();
+        $sql = " SELECT 
+                    faskes_type, count(faskes_type) jml 
+                 FROM faskes 
+                 GROUP BY faskes_type";
+        $query = $db->query($sql);
+        $results = $query->getResult();
+        //print_r($results);
+        return $results;;
+    }
+
+    public function get_vaksin_count() {
+        $db = \Config\Database::connect();
+        $sql = " SELECT 
+                    vaksin_name, IFNULL(sum(faskes_vaksins.kouta),0) jml 
+                 FROM vaksin
+                 LEFT JOIN faskes_vaksins ON vaksin.id=faskes_vaksins.vaksin_id   
+                 GROUP BY vaksin.id";
+        $query = $db->query($sql);
+        $results = $query->getResult();
+        //print_r($results);
+        return $results;;
+    }
+
     public function get_vaksin($faskes_id) {
         $db = \Config\Database::connect();
         $sql = "SELECT  
