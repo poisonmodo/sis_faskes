@@ -43,9 +43,15 @@ $sess = $session->get('security');
                         <p>Vaksin</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="<?php echo site_url('master/faskes') ?>" class="nav-link">
+                        <i class="fa fa-handshake nav-icon"></i>
+                        <p>Faskes</p>
+                    </a>
+                </li>
             </ul>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="#" class="nav-link">
                 <i class="nav-icon fa fa-laptop"></i>
                 <p>
@@ -67,7 +73,7 @@ $sess = $session->get('security');
                     </a>
                 </li>
             </ul>
-        </li>
+        </li> -->
 <?php //} ?>          
         <li class="nav-item">
             <a href="#" class="nav-link">

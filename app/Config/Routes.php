@@ -36,7 +36,7 @@ $routes->group('ajax', function ($routes) {
 	$routes->add('checklist/del', 'AjaxController::delete_checklist');
 	$routes->add('user/del', 'AjaxController::delete_user');
 	$routes->add('payment/del', 'AjaxController::delete_payment');
-	$routes->add('skripsi/dosen/del', 'AjaxController::delete_skripsi_dosen');
+	$routes->add('faskes/del', 'AjaxController::delete_faskes');
 	$routes->add('student/nim', 'AjaxController::get_student_by_nim');
 	$routes->add('city/del', 'AjaxController::delete_city');
 	$routes->add('student/detail', 'AjaxController::get_student_detail');

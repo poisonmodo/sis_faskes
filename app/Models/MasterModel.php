@@ -23,7 +23,7 @@ class MasterModel extends Model
 
     public function delete_faskes($id) {
         $db = \Config\Database::connect();
-        $sql ="DELETE FROM faskies
+        $sql ="DELETE FROM faskes
                WHERE id='".$id."';";
         $db->query($sql);
         $result = array(

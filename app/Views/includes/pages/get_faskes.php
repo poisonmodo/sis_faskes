@@ -70,7 +70,7 @@
                         subtitle: '',
                         body: data.message
                     }) 
-                    setTimeout('location.href="<?php echo site_url('master/faskSes') ?>"',3000)
+                    setTimeout('location.href="<?php echo site_url('master/faskes') ?>"',3000)
 
                 }
             })    

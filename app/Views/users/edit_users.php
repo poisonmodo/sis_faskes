@@ -45,28 +45,13 @@ $request = service('request');
                                 <form method="post" action="<?php echo site_url('management/user/edit/'.$uid) ?>">
                                     <div class="form-group">
                                         <label for="username">Username <span class="required">*</span></label>
-                                        <input type="text" name="username" readonly="readonly" class="form-control <?php echo (isset($err["username"])) ? "is-invalid" : "" ?>" id="username" placeholder="Silakan isi username" value="<?php echo $usr->username?>">
+                                        <input type="text" name="username" readonly="readonly" class="form-control <?php echo (isset($err["username"])) ? "is-invalid" : "" ?>" id="username" placeholder="Silakan isi username" value="<?php echo $usr->email?>">
                                         <?php echo (isset($err["username"])) ? '<span class="error-invalid-feedback">' . $err["username"] . '</span>' : "" ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="userpass">Password <span class="required">*</span></label>
                                         <input type="password" name="userpass" class="form-control <?php echo (isset($err["userpass"])) ? "is-invalid" : "" ?>" id="userpass" placeholder="Silakan isi Password">
                                         <?php echo (isset($err["userpass"])) ? '<span class="error-invalid-feedback">' . $err["userpass"] . '</span>' : '<span>Kosongkan password jika password tidak diganti<span>' ?>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="group_id">Group User <span class="required">*</span></label>
-                                        <div class="form-group">
-                                            <select id="group_id" name="group_id" class="form-control">
-                                                <option value=""> Pilih Salah satu Group User </option>
-                                    <?php if ($groupslist) {
-                                        $i=1;
-                                        foreach ($groupslist as $groups) : ?>
-                                            <option value="<?php echo $groups->id ?>" <?php echo ($usr->group_id==$groups->id)?"selected='selected'":"" ?>><?php echo $groups->nama_group ?></option>
-                                <?php   endforeach;
-                                    } ?>                        
-                                            </select>
-                                        </div>
-                                        <?php echo (isset($err["group_id"])) ? '<span class="error-invalid-feedback">' . $err["group_id"] . '</span>' : "" ?>
                                     </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary" name="editbtn" id="editbtn" value="update">Update User</button>

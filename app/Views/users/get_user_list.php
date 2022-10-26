@@ -61,7 +61,6 @@ $uri = service('uri');
                                                     <input type="checkbox" id="chkall1" class="chkall" value="1">
                                                 </th>
                                                 <th class="col-sm-3">Username</th>
-                                                <th class="col-sm-3">Group User</th>
                                                 <th class="col-sm-3">Aksi</th>
                                             </tr>
                                         </thead>
@@ -75,10 +74,7 @@ $uri = service('uri');
                                                             <input type="checkbox" name="chkbox[]" id="chkbox<?php echo $i ?>" class="chkbox" value="<?php echo $users->id ?>">
                                                         </td>
                                                         <td>
-                                                            <?php echo $users->username ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $users->nama_group ?>
+                                                            <?php echo $users->email ?>
                                                         </td>
                                                         <td>
                                                             <a href="<?php echo site_url('management/user/edit/'.$users->id) ?>" data-toggle="tooltip" title="Edit User"><i class="fa fa-edit"></i></a>
@@ -101,7 +97,6 @@ $uri = service('uri');
                                                 <input type="checkbox" id="chkall2" class="chkall" value="1">
                                             </th>
                                             <th>Username</th>
-                                            <th>Group User</th>
                                             <th>Aksi</th>
                                         </tfoot>
                                     </table>

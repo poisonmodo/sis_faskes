@@ -277,12 +277,12 @@ class AjaxController extends BaseController
 		exit();
 	}
 	
-	public function delete_lecturer()
+	public function delete_faskes()
 	{
-		$LecturersModel = new \App\Models\LecturersModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$dat = $this->request->getPost();
 		
-		$hasil =$LecturersModel->delete_Lecturer($dat["id"]);
+		$hasil =$MasterModel->delete_faskes($dat["id"]);
 		if($hasil["is_error"]==0) {
 			echo json_encode(array(
 				"is_error" => 0,
