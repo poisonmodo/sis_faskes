@@ -10,14 +10,14 @@ $request = service('request');
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">BAAK</h1>
+                    <h1 class="m-0 text-dark">Master</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item">BAAK</li>
-                        <li class="breadcrumb-item">Yudisium</li>
-                        <li class="breadcrumb-item active">Tambah Yudisium</li>
+                        <li class="breadcrumb-item">Master</li>
+                        <li class="breadcrumb-item">Vaksin</li>
+                        <li class="breadcrumb-item active">Edit Vaksin</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -32,7 +32,7 @@ $request = service('request');
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Tambah Yudisium <?php echo $nim." - ".$student_name ?></h3>
+                            <h3 class="card-title">Edit Vaksin</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -41,30 +41,22 @@ $request = service('request');
                                 $msg= session()->getFlashdata('success');
                                 unset($_SESSION["success"]);
                                 if(!isset($msg)) { ?>
-                                <form method="post" action="<?php echo site_url('baak/yudisium/add/'.$nim) ?>" enctype="multipart/form-data">
+                                <form method="post" action="<?php echo site_url('master/vaksin/edit/'.$id) ?>" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <label for="nim">Nama Dokumen <span class="required">*</span></label>
-                                        <select class="form-control" name="id_dokumen" id="id_dokumen">
-											<option value="">Pilih Salah Satu dokumen</option>
-
-<?php if($docslist) { 
-		foreach($docslist as $docs) { ?>
-											<option value="<?php echo $docs->id ?>"><?php echo $docs->nama_dokumen ?></option>
-<?php 	}
-	  } ?>		
-										</select>
-                                        <?php echo (isset($err["id_dokumen"])) ? '<span class="error-invalid-feedback">' . $err["id_dokumen"] . '</span>' : "" ?>
+                                        <label for="vaksin_type">Tipe Vaksin <span class="required">*</span></label>
+                                        <input type="text" name="vaksin_type" class="form-control <?php echo (isset($err["vaksin_type"])) ? "is-invalid" : "" ?>" id="vaksin_type"  placeholder="Silakan isi vaksin_type" value="<?php echo $vaksin->vaksin_type ?>">
+                                        <?php echo (isset($err["vaksin_type"])) ? '<span class="error-invalid-feedback">' . $err["vaksin_type"] . '</span>' : "" ?>
                                     </div>
-									<div class="form-group">
-                                        <label for="photo">Scan Document</label><br>
-                                        <input type="file" name="photo" class="<?php echo (isset($err["photo"])) ? "is-invalid" : "" ?>" id="photo" placeholder="Silakan upload photo">
-                                        <?php echo (isset($err["photo"])) ? '<span class="error-invalid-feedback">' . $err["photo"] . '</span>' : "" ?>
+                                    <div class="form-group">
+                                        <label for="vaksin_name">Nama Vaksin <span class="required">*</span></label>
+                                        <input type="text" name="vaksin_name" class="form-control <?php echo (isset($err["vaksin_name"])) ? "is-invalid" : "" ?>" id="vaksin_name" placeholder="Silakan isi Nama Vaksin" value="<?php echo $vaksin->vaksin_name ?>">
+                                        <?php echo (isset($err["vaksin_name"])) ? '<span class="error-invalid-feedback">' . $err["vaksin_name"] . '</span>' : "" ?>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" name="addbtn" id="addbtn" value="add">Tambah Yudisium</button>
-                                        <button type="button" class="btn btn-danger" name="backbtn" id="backbtn2" value="back" onclick='location.href="<?php echo site_url('baak/yudisium') ?>"'>Kembali</button>
+                                        <button type="submit" class="btn btn-primary" name="editbtn" id="editbtn" value="Update">Update Vaksin</button>
+                                        <button type="button" class="btn btn-danger" name="backbtn" id="backbtn2" value="back" onclick='location.href="<?php echo site_url('master/vaksin') ?>"'>Kembali</button>
                                         <p>
-                                            <span class="required">*</span> Wajib diisi
+                                            <span class="required">*</span> Wajib   
                                         <p>
                                     </div>
                                 </form>
@@ -74,7 +66,7 @@ $request = service('request');
                         <?php       echo $msg; ?>                  
                                 </div>
                                 <script type="text/javascript">
-                                    setTimeout('location.href="<?php echo site_url($uri->getSegment(1)."/".$uri->getSegment(2).'/'.$nim) ?>"',3000)
+                                    setTimeout('location.href="<?php echo site_url($uri->getSegment(1)."/".$uri->getSegment(2)) ?>"',3000)
                                 </script>
                         <?php   } ?>           
                             </p>

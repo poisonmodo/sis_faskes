@@ -51,29 +51,23 @@ $sess = $session->get('security');
                 </li>
             </ul>
         </li>
-        <!-- <li class="nav-item">
+        <li class="nav-item">
             <a href="#" class="nav-link">
                 <i class="nav-icon fa fa-laptop"></i>
                 <p>
-                    BAAK
+                    Info Faskes
                     <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="<?php echo site_url('baak/students/yudisium') ?>" class="nav-link">
+                    <a href="<?php echo site_url('faskes/vaksin') ?>" class="nav-link">
                         <i class="fa fa-newspaper nav-icon"></i>
-                        <p>Yudisium</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?php echo site_url('baak/students/ijazah') ?>" class="nav-link">
-                        <i class="far fa-building nav-icon"></i>
-                        <p>Ijazah</p>
+                        <p>Vaksin</p>
                     </a>
                 </li>
             </ul>
-        </li> -->
+        </li>
 <?php //} ?>          
         <li class="nav-item">
             <a href="#" class="nav-link">

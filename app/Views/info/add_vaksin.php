@@ -10,14 +10,14 @@ $request = service('request');
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">BAAK</h1>
+                    <h1 class="m-0 text-dark">Master</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item">BAAK</li>
-                        <li class="breadcrumb-item">Check list</li>
-                        <li class="breadcrumb-item active">Tambah Dokumen</li>
+                        <li class="breadcrumb-item">Master</li>
+                        <li class="breadcrumb-item">Vaksin</li>
+                        <li class="breadcrumb-item active">Tambah Vaksin</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -32,7 +32,7 @@ $request = service('request');
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Tambah Dokumen</h3>
+                            <h3 class="card-title">Tambah Vaksin</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -41,27 +41,20 @@ $request = service('request');
                                 $msg= session()->getFlashdata('success');
                                 unset($_SESSION["success"]);
                                 if(!isset($msg)) { ?>
-                                <form method="post" action="<?php echo site_url('baak/checklist/add/'.$skripsi_id) ?>" enctype="multipart/form-data">
+                                <form method="post" action="<?php echo site_url('master/vaksin/add') ?>" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <label for="param_id">Keterangan <span class="required">*</span></label>
-                                        <select class="form-control" name="param_id" id="param_id">
-											<option value="">Pilih Salah Stau Keterangan</option>
-
-<?php if($paramlist) { 
-		foreach($paramlist as $param) { ?>
-											<option value="<?php echo $param->id ?>" <?php echo ($param->id==set_value('param_id'))?"selected='selected'":"" ?>><?php echo $param->param_name ?></option>
-<?php 	}
-	  } ?>		
-										</select>
-                                        <?php echo (isset($err["param_id"])) ? '<span class="error-invalid-feedback">' . $err["param_id"] . '</span>' : "" ?>
+                                        <label for="vaksin_type">Tipe Vaksin <span class="required">*</span></label>
+                                        <input type="text" name="vaksin_type" class="form-control <?php echo (isset($err["vaksin_type"])) ? "is-invalid" : "" ?>" id="vaksin_type" placeholder="Silakan isi vaksin_type" value="<?php echo set_value('vaksin_type','') ?>">
+                                        <?php echo (isset($err["vaksin_type"])) ? '<span class="error-invalid-feedback">' . $err["vaksin_type"] . '</span>' : "" ?>
                                     </div>
                                     <div class="form-group">
-                                        <label for="param_id">Foto <span class="required">*</span></label><br>
-                                        <input type="file" name="document" id="document">
+                                        <label for="vaksin_name">Nama Vaksin <span class="required">*</span></label>
+                                        <input type="text" name="vaksin_name" class="form-control <?php echo (isset($err["vaksin_name"])) ? "is-invalid" : "" ?>" id="vaksin_name" placeholder="Silakan isi Nama Vaksin" value="<?php echo set_value('vaksin_name','') ?>">
+                                        <?php echo (isset($err["vaksin_name"])) ? '<span class="error-invalid-feedback">' . $err["vaksin_name"] . '</span>' : "" ?>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" name="addbtn" id="addbtn" value="add">Tambah Dokumen</button>
-                                        <button type="button" class="btn btn-danger delallbtn" name="backbtn" id="backbtn" value="back" onclick='location.href="<?php echo site_url('baak/checklist/'.$skripsi_id) ?>"'>Kembali</button>
+                                        <button type="submit" class="btn btn-primary" name="addbtn" id="addbtn" value="add">Tambah Vaksin</button>
+                                        <button type="button" class="btn btn-danger" name="backbtn" id="backbtn2" value="back" onclick='location.href="<?php echo site_url('master/$vaksin') ?>"'>Kembali</button>
                                         <p>
                                             <span class="required">*</span> Wajib diisi
                                         <p>
@@ -73,7 +66,7 @@ $request = service('request');
                         <?php       echo $msg; ?>                  
                                 </div>
                                 <script type="text/javascript">
-                                    setTimeout('location.href="<?php echo site_url($uri->getSegment(1)."/".$uri->getSegment(2)."/".$skripsi_id) ?>"',3000)
+                                    setTimeout('location.href="<?php echo site_url($uri->getSegment(1)."/".$uri->getSegment(2)) ?>"',3000)
                                 </script>
                         <?php   } ?>           
                             </p>
