@@ -34,7 +34,7 @@ class HomeController extends AppController
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			"group_id" => $this->viewdata["group_id"],
+			
 			"setuplist" => $setuplist
 
 		];	
@@ -44,12 +44,17 @@ class HomeController extends AppController
 
 	public function home()
 	{
+		$InfoModel = new \App\Models\InfoModel();
+		$faskes_count = $InfoModel->get_faskes_count();
+		$vaksin_count = $InfoModel->get_vaksin_count();
 		$data = [
 			"page"	=> "home",
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			//"group_id" => $this->viewdata["group_id"],
+			"faskes_count" => $faskes_count,
+			"vaksin_count" => $vaksin_count,
+			//
 		];	
 		
 		return view('home',$data);

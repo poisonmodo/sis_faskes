@@ -35,20 +35,27 @@ $routes->group('ajax', function ($routes) {
 	$routes->add('checklist/mhs/count', 'AjaxController::get_mhs_checklist_count');
 	$routes->add('checklist/del', 'AjaxController::delete_checklist');
 	$routes->add('user/del', 'AjaxController::delete_user');
-	$routes->add('payment/del', 'AjaxController::delete_payment');
-	$routes->add('skripsi/dosen/del', 'AjaxController::delete_skripsi_dosen');
+	$routes->add('faskesvaksin/del', 'AjaxController::delete_faskes_vaksin');
+	$routes->add('faskes/del', 'AjaxController::delete_faskes');
 	$routes->add('student/nim', 'AjaxController::get_student_by_nim');
-	$routes->add('jurusan/del', 'AjaxController::delete_jurusan');
+	$routes->add('city/del', 'AjaxController::delete_city');
 	$routes->add('student/detail', 'AjaxController::get_student_detail');
 	$routes->add('student/list', 'AjaxController::get_student_list');
 	$routes->add('yudisium/del', 'AjaxController::delete_yudisium');
-	$routes->add('students/del', 'AjaxController::delete_student');
-	$routes->add('documents/del', 'AjaxController::delete_documents');
+	$routes->add('vaksin/del', 'AjaxController::delete_vaksin');
+	$routes->add('province/del', 'AjaxController::delete_province');
 });
 
 $routes->group('export', function ($routes) {
 	$routes->add('xls/students', 'ExportController::get_students');
 	$routes->add('xls/ijazah', 'ExportController::get_student_ijazah');
+});
+
+$routes->group('info', function ($routes) {
+	$routes->add('faskes', 'InfoController::get_faskes_vaksin');
+	$routes->add('vaksin/list/(:num)', 'InfoController::get_vaksin/$1');
+	$routes->add('vaksin/add/(:num)', 'InfoController::add_vaksin/$1');
+	$routes->add('vaksin/edit/(:num)/(:num)', 'InfoController::edit_vaksin/$1/$2');
 });
 
 $routes->group('management', function ($routes) {
@@ -58,35 +65,19 @@ $routes->group('management', function ($routes) {
 
 });
 
-$routes->group('baak', function ($routes) {
-	$routes->add('ijazah/edit/(:any)/(:num)', 'YudisiumController::edit_ijazah/$1/$2');
-	$routes->add('ijazah/add/(:any)', 'YudisiumController::add_ijazah/$1');
-	$routes->add('ijazah/(:any)', 'YudisiumController::get_ijazah/$1');
-	$routes->add('checklist/edit/(:num)/(:num)', 'SkripsiController::edit_checklist/$1/$2');
-	$routes->add('checklist/add/(:num)', 'SkripsiController::add_checklist/$1');
-	$routes->add('checklist/(:num)', 'SkripsiController::get_checklist/$1');
-	$routes->add('payment/edit/(:num)/(:num)', 'PaymentController::edit_payment/$1/$2');
-	$routes->add('payment/add/(:num)', 'PaymentController::add_payment/$1');
-	$routes->add('payment/(:num)', 'PaymentController::get_payment/$1');
-	$routes->add('yudisium/edit/(:any)/(:num)', 'YudisiumController::edit_yudisium/$1/$2');
-	$routes->add('yudisium/add/(:any)', 'YudisiumController::add_yudisium/$1');
-	$routes->add('students/(:any)', 'YudisiumController::get_students/$1');
-	$routes->add('yudisium/(:any)', 'YudisiumController::get_yudisium/$1');
-});
-
 $routes->group('master', function ($routes) {
-	$routes->add('documents/edit/(:num)', 'AcademicController::edit_documents/$1');
-	$routes->add('documents/add', 'AcademicController::add_documents');
-	$routes->add('documents', 'AcademicController::get_document');
-	$routes->add('jurusan/edit/(:num)', 'AcademicController::edit_jurusan/$1');
-	$routes->add('jurusan/add', 'AcademicController::add_jurusan');
-	$routes->add('jurusan', 'AcademicController::get_jurusan');
-	$routes->add('lecturers', 'AcademicController::get_lecturers');
-	$routes->add('lecturers/edit/(:num)', 'AcademicController::edit_lecturers/$1');
-	$routes->add('lecturers/add', 'AcademicController::add_lecturers');
-	$routes->add('students', 'AcademicController::get_collegestudent');
-	$routes->add('students/edit/(:num)', 'AcademicController::edit_collegestudent/$1');
-	$routes->add('students/add', 'AcademicController::add_collegestudent');
+	$routes->add('city/edit/(:num)', 'MasterController::edit_city/$1');
+	$routes->add('city/add', 'MasterController::add_city');
+	$routes->add('city', 'MasterController::get_city');
+	$routes->add('province/edit/(:num)', 'MasterController::edit_province/$1');
+	$routes->add('province/add', 'MasterController::add_province');
+	$routes->add('province', 'MasterController::get_province');
+	$routes->add('vaksin', 'MasterController::get_vaksin');
+	$routes->add('vaksin/edit/(:num)', 'MasterController::edit_vaksin/$1');
+	$routes->add('vaksin/add', 'MasterController::add_vaksin');
+	$routes->add('faskes', 'MasterController::get_faskes');
+	$routes->add('faskes/edit/(:num)', 'MasterController::edit_faskes/$1');
+	$routes->add('faskes/add', 'MasterController::add_faskes');
 });
 
 $routes->add('changepassword', 'UsersController::chpass');

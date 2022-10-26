@@ -10,14 +10,14 @@ $request = service('request');
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Management</h1>
+                    <h1 class="m-0 text-dark">Master</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item">Management</li>
-                        <li class="breadcrumb-item">Users</li>
-                        <li class="breadcrumb-item active">Edit User</li>
+                        <li class="breadcrumb-item">Master</li>
+                        <li class="breadcrumb-item">Kota</li>
+                        <li class="breadcrumb-item active">Edit Kota</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -32,7 +32,7 @@ $request = service('request');
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Edit User</h3>
+                            <h3 class="card-title">Edit Kota</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -40,26 +40,33 @@ $request = service('request');
                         <?php   $err = session()->getFlashdata('errors'); 
                                 $msg= session()->getFlashdata('success');
                                 unset($_SESSION["success"]);
-                                    
                                 if(!isset($msg)) { ?>
-                                <form method="post" action="<?php echo site_url('management/user/edit/'.$uid) ?>">
-                                    <div class="form-group">
-                                        <label for="username">Username <span class="required">*</span></label>
-                                        <input type="text" name="username" readonly="readonly" class="form-control <?php echo (isset($err["username"])) ? "is-invalid" : "" ?>" id="username" placeholder="Silakan isi username" value="<?php echo $usr->email?>">
-                                        <?php echo (isset($err["username"])) ? '<span class="error-invalid-feedback">' . $err["username"] . '</span>' : "" ?>
+                                <form method="post" action="<?php echo site_url('master/city/edit/'.$id) ?>">
+                                <div class="form-group">
+                                        <label for="Kota">Provinsi <span class="required">*</span></label>
+                                        <select class="form-control" name="province_id" id="province_id">
+											<option value="">Pilih Salah Salah Satu Provinsi</option>
+
+<?php if($provlist) { 
+	    foreach($provlist as $prov) { ?>
+											<option value="<?php echo $prov->id ?>" <?php echo ($prov->id==$city->province_id)?"selected='selected'":"" ?>><?php echo $prov->province ?></option>
+<?php 	}
+	  } ?>		
+										</select>
+                                        <?php echo (isset($err["province_id"])) ? '<span class="error-invalid-feedback">' . $err["province_id"] . '</span>' : "" ?>
                                     </div>
                                     <div class="form-group">
-                                        <label for="userpass">Password <span class="required">*</span></label>
-                                        <input type="password" name="userpass" class="form-control <?php echo (isset($err["userpass"])) ? "is-invalid" : "" ?>" id="userpass" placeholder="Silakan isi Password">
-                                        <?php echo (isset($err["userpass"])) ? '<span class="error-invalid-feedback">' . $err["userpass"] . '</span>' : '<span>Kosongkan password jika password tidak diganti<span>' ?>
+                                        <label for="Kota">Nama Kota <span class="required">*</span></label>
+                                        <input type="text" name="city" class="form-control <?php echo (isset($err["city"])) ? "is-invalid" : "" ?>" id="city" placeholder="Silakan isi Nama Kota" value="<?php echo $city->city ?>">
+                                        <?php echo (isset($err["city"])) ? '<span class="error-invalid-feedback">' . $err["city"] . '</span>' : "" ?>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" name="editbtn" id="editbtn" value="update">Update User</button>
-                                        <button type="button" class="btn btn-danger" name="backbtn" id="backbtn1" value="back" onclick='location.href="<?php echo site_url('management/user') ?>"'>Kembali</button>
+                                        <button type="submit" class="btn btn-primary" name="editbtn" id="editbtn" value="update">Update Kota</button>
+                                        <button type="button" class="btn btn-danger" name="backbtn" id="backbtn2" value="back" onclick='location.href="<?php echo site_url('master/city') ?>"'>Kembali</button>
                                         <p>
                                             <span class="required">*</span> Wajib diisi
                                         <p>
-                                    </div>  
+                                    </div>
                                 </form>
                         <?php   } 
                                 else { ?>
@@ -67,7 +74,7 @@ $request = service('request');
                         <?php       echo $msg; ?>                  
                                 </div>
                                 <script type="text/javascript">
-										setTimeout('location.href="<?php echo site_url($uri->getSegment(1)."/".$uri->getSegment(2)) ?>"',3000)
+                                    setTimeout('location.href="<?php echo site_url($uri->getSegment(1)."/".$uri->getSegment(2)) ?>"',3000)
                                 </script>
                         <?php   } ?>           
                             </p>

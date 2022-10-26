@@ -10,13 +10,13 @@ $uri = service('uri');
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">User Management</h1>
+                    <h1 class="m-0 text-dark">Master</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item">User Management</li>
-                        <li class="breadcrumb-item">Daftar User</li>
+                        <li class="breadcrumb-item">Master</li>
+                        <li class="breadcrumb-item">Daftar Provinsi</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -31,7 +31,7 @@ $uri = service('uri');
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">User</h3>
+                            <h3 class="card-title">Provinsi</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -46,12 +46,12 @@ $uri = service('uri');
                                     setTimeout('location.href="<?php echo site_url($uri->getSegment(1)."/".$uri->getSegment(2)) ?>"',3000)
                                 </script>
                         <?php   } ?>        
-                                <form method="post" action="<?php echo site_url('management/users') ?>" id="frmlist">
+                                <form method="post" action="<?php echo site_url('master/province') ?>" id="frmlist">
                                     <input type="hidden" name="delall" id="delall" value="1">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary" name="addbtn" id="addbtn1" onclick='location.href="<?php echo site_url('management/user/add') ?>"'>Tambah User</button>
-                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn1" value="del">Hapus User</button>
+                                            <button type="button" class="btn btn-primary" name="addbtn" id="addbtn1" onclick='location.href="<?php echo site_url('master/province/add') ?>"'>Tambah Provinsi</button>
+                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn1" value="del">Hapus Provinsi</button>
                                         </div>
                                     </div>
                                     <table id="example1" class="table table-bordered table-striped">
@@ -60,26 +60,26 @@ $uri = service('uri');
                                                 <th class="col-sm-1">
                                                     <input type="checkbox" id="chkall1" class="chkall" value="1">
                                                 </th>
-                                                <th class="col-sm-3">Username</th>
-                                                <th class="col-sm-3">Aksi</th>
+                                                <th class="col-sm-10">Nama Provinsi</th>
+                                                <th class="col-sm-1">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                    <?php if ($userlist) {
+                                    <?php if ($provlist) {
                                                 $i=1;
                                                 // $generator = new Barcode\BarcodeGeneratorHTML();
-                                                foreach ($userlist as $users) : ?>
+                                                foreach ($provlist as $prov) : ?>
                                                     <tr>
                                                         <td>
-                                                            <input type="checkbox" name="chkbox[]" id="chkbox<?php echo $i ?>" class="chkbox" value="<?php echo $users->id ?>">
+                                                            <input type="checkbox" name="chkbox[]" id="chkbox<?php echo $i ?>" class="chkbox" value="<?php echo $prov->id ?>">
                                                         </td>
                                                         <td>
-                                                            <?php echo $users->email ?>
+                                                            <?php echo $prov->province ?>
                                                         </td>
                                                         <td>
-                                                            <a href="<?php echo site_url('management/user/edit/'.$users->id) ?>" data-toggle="tooltip" title="Edit User"><i class="fa fa-edit"></i></a>
-                                                            <a href="#"  title="Hapus User" id="<?php echo $users->id ?>" class="delbtn" onclick="return false;"><i class="fa fa-minus-square"></i></a>    
-                                                        </td>   
+                                                            <a href="<?php echo site_url('master/province/edit/'.$prov->id) ?>" data-toggle="tooltip" title="Edit Provinsi"><i class="fa fa-edit"></i></a>
+                                                            <a href="#"  title="Hapus Provinsi" id="<?php echo $prov->id ?>" class="delbtn" onclick="return false;"><i class="fa fa-minus-square"></i></a>    
+                                                        </td>   	
                                                     </tr>
                                     <?php 
                                                     $i++;    
@@ -87,23 +87,23 @@ $uri = service('uri');
                                           }
                                           else {  ?>
                                                     <tr>
-                                                        <td colspan="9" class="text-center">Data tidak ditemukan</td>
+                                                        <td colspan="4" class="text-center">Data tidak ditemukan</td>
                                                         
                                                     </tr>
                                     <?php } ?>      
                                         </tbody>
                                         <tfoot>
                                             <th>
-                                                <input type="checkbox" id="chkall2" class="chkall" value="1">
-                                            </th>
-                                            <th>Username</th>
-                                            <th>Aksi</th>
+												<input type="checkbox" id="chkall2" class="chkal2" value="1">
+											</th>
+											<th>Nama Provinsi</th>
+											<th>Aksi</th>
                                         </tfoot>
                                     </table>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary" name="addbtn2" id="addbtn2" onclick='location.href="<?php echo site_url('management/user/add') ?>"'>Tambah User</button>
-                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn2" value="del">Hapus User</button>
+                                            <button type="button" class="btn btn-primary" name="addbtn2" id="addbtn2" onclick='location.href="<?php echo site_url('master/province/add') ?>"'>Tambah Provinsi</button>
+                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn2" value="del">Hapus Provinsi</button>
                                         </div>
                                     </div>
                                 </form>
@@ -111,7 +111,7 @@ $uri = service('uri');
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header bg-primary">
-                                                <h4 class="modal-title">Hapus User</h4>
+                                                <h4 class="modal-title">Hapus Provinsi</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -119,7 +119,7 @@ $uri = service('uri');
                                             <div class="modal-body">
                                                 <form id="frmdel">
                                                     <input type="hidden" name="cat_id" id="id_delete" value="">
-                                                    <p>Apakah Anda yakin hapus user?</p>
+                                                    <p>Apakah Anda yakin hapus Provinsi?</p>
                                                 </form>
                                             </div>
                                             <div class="modal-footer justify-content-between">
@@ -135,13 +135,13 @@ $uri = service('uri');
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header bg-primary">
-                                                <h4 class="modal-title">Hapus User</h4>
+                                                <h4 class="modal-title">Hapus Provinsi</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Apakah Anda yakin hapus user ini?</p>
+                                                <p>Apakah Anda yakin hapus Provinsi ini?</p>
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>

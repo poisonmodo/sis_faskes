@@ -52,21 +52,7 @@ $request = service('request');
                                         <input type="password" name="userpass" class="form-control <?php echo (isset($err["userpass"])) ? "is-invalid" : "" ?>" id="userpass" placeholder="Silakan isi Password">
                                         <?php echo (isset($err["userpass"])) ? '<span class="error-invalid-feedback">' . $err["userpass"] . '</span>' : "" ?>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="userpas">Group User <span class="required">*</span></label>
-                                        <div class="form-group">
-                                            <select id="group_id" name="group_id" class="form-control">
-                                                <option value=""> Pilih Salah satu Group User </option>
-                                    <?php if ($groupslist) {
-                                        $i=1;
-                                        foreach ($groupslist as $groups) : ?>
-                                            <option value="<?php echo $groups->id ?>" <?php echo (set_value('group_id')==$groups->id)?"selected='selected'":"" ?>><?php echo $groups->nama_group ?></option>
-                                <?php   endforeach;
-                                    } ?>                        
-                                            </select>
-                                        </div>
-                                        <?php echo (isset($err["group_id"])) ? '<span class="error-invalid-feedback">' . $err["group_id"] . '</span>' : "" ?>
-                                    </div>
+                                    
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary" name="addbtn" id="addbtn" value="add">Tambah User</button>
                                         <button type="button" class="btn btn-danger" name="backbtn" id="backbtn2" value="back" onclick='location.href="<?php echo site_url('management/user') ?>"'>Kembali</button>

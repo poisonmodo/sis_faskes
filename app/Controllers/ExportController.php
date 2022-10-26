@@ -17,7 +17,7 @@ class ExportController extends AppController
 	public function get_student_ijazah()
 	{
 		$ExportModel = new \App\Models\ExportModel();
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 
 		helper('url');
 		$uri = service('uri');
@@ -135,14 +135,14 @@ class ExportController extends AppController
 			$this->ijazah_printpdf($studentlist);
 		}
 
-		$jurusanlist = $CollegeStudentModel->get_jurusan_select();
-		$tahunlist = $CollegeStudentModel->get_tahun_select();
+		$jurusanlist = $MasterModel->get_jurusan_select();
+		$tahunlist = $MasterModel->get_tahun_select();
 
 		$data = [
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			"group_id" => $this->viewdata["group_id"],
+			
 			"studentlist" => $studentlist,
 			"page" => "get_students_ijazah_export_xls",
 			"jurusanlist" => $jurusanlist,
@@ -299,7 +299,7 @@ class ExportController extends AppController
 	public function get_students()
 	{
 		$ExportModel = new \App\Models\ExportModel();
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 
 		helper('url');
 		$uri = service('uri');
@@ -400,14 +400,14 @@ class ExportController extends AppController
 			$this->students_printpdf($studentlist);
 		}
 
-		$jurusanlist = $CollegeStudentModel->get_jurusan_select();
-		$tahunlist = $CollegeStudentModel->get_tahun_select();
+		$jurusanlist = $MasterModel->get_jurusan_select();
+		$tahunlist = $MasterModel->get_tahun_select();
 
 		$data = [
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
 			"uname" => $this->viewdata["uname"],
-			"group_id" => $this->viewdata["group_id"],
+			
 			"studentlist" => $studentlist,
 			"page" => "get_students_export_xls",
 			"jurusanlist" => $jurusanlist,

@@ -100,10 +100,10 @@ class AjaxController extends BaseController
 
 	public function delete_lesson()
 	{
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$dat = $this->request->getPost();
 		
-		$hasil =$CollegeStudentModel->delete_lesson($dat["id"]);
+		$hasil =$MasterModel->delete_lesson($dat["id"]);
 		if($hasil["is_error"]==0) {
 			echo json_encode(array(
 				"is_error" => 0,
@@ -120,12 +120,12 @@ class AjaxController extends BaseController
 		exit();
 	}
 	
-	public function delete_documents()
+	public function delete_province()
 	{
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$dat = $this->request->getPost();
 		
-		$hasil =$CollegeStudentModel->delete_documents($dat["id"]);
+		$hasil =$MasterModel->delete_province($dat["id"]);
 		if($hasil["is_error"]==0) {
 			echo json_encode(array(
 				"is_error" => 0,
@@ -164,12 +164,12 @@ class AjaxController extends BaseController
 		exit();
 	}
 
-	public function delete_jurusan()
+	public function delete_city()
 	{
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$dat = $this->request->getPost();
 		
-		$hasil =$CollegeStudentModel->delete_jurusan($dat["id"]);
+		$hasil =$MasterModel->delete_city($dat["id"]);
 		if($hasil["is_error"]==0) {
 			echo json_encode(array(
 				"is_error" => 0,
@@ -188,9 +188,9 @@ class AjaxController extends BaseController
 
 	public function get_student_by_nim()
 	{
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$dat = $this->request->getPost();
-		$hasil =$CollegeStudentModel->get_student_by_nim($dat["nim"]);
+		$hasil =$MasterModel->get_student_by_nim($dat["nim"]);
 		if($hasil) {
 
 			echo json_encode(array(
@@ -211,9 +211,9 @@ class AjaxController extends BaseController
 
 	public function get_student_detail()
 	{
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$dat = $this->request->getPost();
-		$hasil =$CollegeStudentModel->get_student_detail2($dat["nim"]);
+		$hasil =$MasterModel->get_student_detail2($dat["nim"]);
 		if($hasil) {
 
 			echo json_encode(array(
@@ -234,9 +234,9 @@ class AjaxController extends BaseController
 
 	public function get_student_list()
 	{
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		
-		$hasil =$CollegeStudentModel->get_student_select();
+		$hasil =$MasterModel->get_student_select();
 		if($hasil) {
 
 			echo json_encode(array(
@@ -277,12 +277,12 @@ class AjaxController extends BaseController
 		exit();
 	}
 	
-	public function delete_lecturer()
+	public function delete_faskes()
 	{
-		$LecturersModel = new \App\Models\LecturersModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$dat = $this->request->getPost();
 		
-		$hasil =$LecturersModel->delete_Lecturer($dat["id"]);
+		$hasil =$MasterModel->delete_faskes($dat["id"]);
 		if($hasil["is_error"]==0) {
 			echo json_encode(array(
 				"is_error" => 0,
@@ -299,13 +299,35 @@ class AjaxController extends BaseController
 		exit();
     }
 	
-	public function delete_student()
+	public function delete_vaksin()
 	{
-		$CollegeStudentModel = new \App\Models\CollegeStudentModel();
+		$MasterModel = new \App\Models\MasterModel();
 		$dat = $this->request->getPost();
 		
-		$hasil =$CollegeStudentModel->delete_student($dat["id"]);
+		$hasil =$MasterModel->delete_vaksin($dat["id"]);
 		if($hasil["is_error"]==0) {
+			echo json_encode(array(
+				"is_error" => 0,
+				"message" => $hasil["message"])
+			);
+		}
+		else {
+			echo json_encode(array(
+				"is_error" => 1,
+				"message" => $hasil["message"]
+			));
+		}
+	
+		exit();
+    }
+
+	public function delete_faskes_vaksin()
+	{
+		$infoModel = new \App\Models\infoModel();
+		$dat = $this->request->getPost();
+		
+		$hasil =$infoModel->delete_faskes_vaksin($dat["id"]);
+			if($hasil["is_error"]==0) {
 			echo json_encode(array(
 				"is_error" => 0,
 				"message" => $hasil["message"])

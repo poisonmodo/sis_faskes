@@ -141,7 +141,7 @@ class UsersController extends AppController
 			$validation->setRules([
 				'username' => 'required',
 				'userpass' => 'required|min_length[6]',
-				'group_id' => 'required',
+				
 			], [
 				"username" => [
 					"required" => "Silakan isi username"
@@ -149,9 +149,7 @@ class UsersController extends AppController
 				"userpass" => [
 					"required" => "Silakan isi password"
 				],
-				"group_id" => [
-					"required" => "Silakan isi Group User"
-				],
+				
 			]);
 
 			if (!$validation->withRequest($this->request)->run()) {
@@ -169,11 +167,11 @@ class UsersController extends AppController
 			redirect()->to($uri->getSegment(1)."/".$uri->getSegment(2)."/".$uri->getSegment(3));
 		}
 
-		$grouplist = $UsersModel->get_group_all();
+		//$grouplist = $UsersModel->get_group_all();
 		$data = [
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
-			"groupslist" => $grouplist,
+			//"groupslist" => $grouplist,
 			"page" => "add_user",
 			"uname" => $this->viewdata["uname"]
 		];
@@ -191,14 +189,12 @@ class UsersController extends AppController
 			$dat = $this->request->getPost();
 			$validation->setRules([
 				'username' => 'required',
-				'group_id' => 'required',
+				
 			], [
 				"username" => [
 					"required" => "Silakan isi username"
 				],
-				"group_id" => [
-					"required" => "Silakan isi Group User"
-				],
+				
 			]);
 
 			if (!$validation->withRequest($this->request)->run()) {
@@ -218,12 +214,12 @@ class UsersController extends AppController
 		}
 
 		$usr = $UsersModel->get_user_detail($id);
-		$grouplist = $UsersModel->get_group_all();
+		// $grouplist = $UsersModel->get_group_all();
 		//print_r($usr);
 		$data = [
 			"site_name" => $this->settings["SITENAME"],
 			"footer" => $this->settings["FOOTER"],
-			"groupslist" => $grouplist,
+			// "groupslist" => $grouplist,
 			"uid" => $id,
 			"page" => "edit_user",
 			"uname" => $this->viewdata["uname"],

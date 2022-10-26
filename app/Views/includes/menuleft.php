@@ -26,27 +26,27 @@ $sess = $session->get('security');
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="<?php echo site_url('master/students') ?>" class="nav-link">
+                    <a href="<?php echo site_url('master/city') ?>" class="nav-link">
                         <i class="fa fa-user-graduate nav-icon"></i>
-                        <p>Mahasiswa</p>
-                    </a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a href="<?php //echo site_url('master/lecturers') ?>" class="nav-link">
-                        <i class="fa fa-user-tie nav-icon"></i>
-                        <p>Dosen</p>
-                    </a>
-                </li> -->
-                <li class="nav-item">
-                    <a href="<?php echo site_url('master/jurusan') ?>" class="nav-link">
-                        <i class="fa fa-handshake nav-icon"></i>
-                        <p>Jurusan</p>
+                        <p>Kota</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?php echo site_url('master/documents') ?>" class="nav-link">
+                    <a href="<?php echo site_url('master/province') ?>" class="nav-link">
                         <i class="fa fa-handshake nav-icon"></i>
-                        <p>Dokumen</p>
+                        <p>Provinsi</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?php echo site_url('master/vaksin') ?>" class="nav-link">
+                        <i class="fa fa-handshake nav-icon"></i>
+                        <p>Vaksin</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?php echo site_url('master/faskes') ?>" class="nav-link">
+                        <i class="fa fa-handshake nav-icon"></i>
+                        <p>Faskes</p>
                     </a>
                 </li>
             </ul>
@@ -55,21 +55,15 @@ $sess = $session->get('security');
             <a href="#" class="nav-link">
                 <i class="nav-icon fa fa-laptop"></i>
                 <p>
-                    BAAK
+                    Info Faskes
                     <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="<?php echo site_url('baak/students/yudisium') ?>" class="nav-link">
+                    <a href="<?php echo site_url('info/faskes') ?>" class="nav-link">
                         <i class="fa fa-newspaper nav-icon"></i>
-                        <p>Yudisium</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?php echo site_url('baak/students/ijazah') ?>" class="nav-link">
-                        <i class="far fa-building nav-icon"></i>
-                        <p>Ijazah</p>
+                        <p>Faskes</p>
                     </a>
                 </li>
             </ul>
