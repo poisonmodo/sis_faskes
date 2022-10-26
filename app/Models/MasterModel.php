@@ -9,6 +9,19 @@ class MasterModel extends Model
     // protected $table      = 'mahasiswa';
     // protected $primaryKey = 'id';
 
+    public function get_faskes_name($id) {
+        $db = \Config\Database::connect();
+        $sql = "SELECT  
+                    faskes_name
+                FROM faskes
+                WHERE id='".$id."'";
+        $query = $db->query($sql);
+        $results = $query->getRow();
+        $tmp = $results->faskes_name;
+        //print_r($results);
+        return $tmp;
+    }
+
     public function get_faskes_detail($id) {
         $db = \Config\Database::connect();
         $sql = "SELECT  
@@ -251,7 +264,7 @@ class MasterModel extends Model
     public function get_vaksin_select() {
         $db = \Config\Database::connect();
         $sql = "SELECT  
-                    vaksin_type, vaksin_name
+                    *
                 FROM vaksin
                 ORDER BY vaksin_name";
         $query = $db->query($sql);

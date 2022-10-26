@@ -16,7 +16,7 @@ $uri = service('uri');
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item">Info</li>
-                        <li class="breadcrumb-item">Daftar Vaksin</li>
+                        <li class="breadcrumb-item">Daftar Faskes</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -31,7 +31,7 @@ $uri = service('uri');
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Vaksin di <?php echo $info_faskes; ?></h3>
+                            <h3 class="card-title">Info Faskes</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -48,48 +48,52 @@ $uri = service('uri');
                         <?php   } ?>        
                                 <form method="post" action="<?php echo site_url('info/vaksin') ?>" id="frmlist">
                                     <input type="hidden" name="delall" id="delall" value="1">
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary" name="addbtn" id="addbtn1" onclick='location.href="<?php echo site_url('info/vaksin/add/'.$faskes_id) ?>"'>Tambah Vaksin</button>
-                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn1" value="del">Hapus Vaksin</button>
+                                            <button type="button" class="btn btn-primary" name="addbtn" id="addbtn1" onclick='location.href="<?php echo site_url('info/vaksin/add') ?>"'>Tambah Info Faskes</button>
+                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn1" value="del">Hapus  Info Faskes</button>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>
                                                     <input type="checkbox" id="chkall1" class="chkall" value="1">
                                                 </th>
-                                                <th>Nama Vaksin</th>
-                                                <th>Kouta</th>
+                                                <th>Nama Faskes</th>
+                                                <th>Type Faskes</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                    <?php if ($vaksinlist) {
+                                    <?php if ($infolist) {
                                                 $i=1;
-                                                foreach ($vaksinlist as $vaksin) : 
-                                                    // if($va   ksin->jenis_kelamin==1) {
-                                                    //     $ket = "Pria";
-                                                    // }
-                                                    // else if($vaksin->jenis_kelamin==2) {
-                                                    //     $ket = "Wanita";
-                                                    // } 
+                                                foreach ($infolist as $info) : 
+                                                    switch($info->faskes_type) {
+                                                        case 1: //Puskesmas
+                                                            $ket="Puskesmas";
+                                                        break;
+                                                        case 2: //Rumah Sakit
+                                                            $ket="Rumah Sakit";
+                                                        break;
+                                                        case 3: //Puskesmas
+                                                            $ket="Klinik";
+                                                        break;    
+                                                    }
                                                     ?>
                                                     <tr>
                                                         <td>
-                                                            <input type="checkbox" name="chkbox[]" id="chkbox<?php echo $i ?>" class="chkbox" value="<?php echo $vaksin->id ?>">
+                                                            <input type="checkbox" name="chkbox[]" id="chkbox<?php echo $i ?>" class="chkbox" value="<?php echo $info->id ?>">
                                                         </td>
                                                         <td>
-                                                            <?php echo $vaksin->vaksin_name ?>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <?php echo $vaksin->kouta ?>
+                                                            <?php echo $info->faskes_name ?>
                                                         </td>
                                                         <td>
-                                                            <a href="<?php echo site_url('info/vaksin/edit/'.$faskes_id.'/'.$vaksin->id) ?>" data-toggle="tooltip" title="Edit Data Vaksin"><i class="fa fa-edit"></i></a>
-                                                            <a href="#"  title="Hapus Vaksin" id="<?php echo $faskes_id."##".$vaksin->id ?>" class="delbtn" onclick="return false;"><i class="fa fa-minus-square"></i></a>    
-                                                        </td>   
+                                                            <?php echo $ket ?>
+                                                        </td>
+                                                        <td>
+                                                            <a href="<?php echo site_url('info/vaksin/list/'.$info->id) ?>" data-toggle="tooltip" title="Lihat Data Vaksin"><i class="fa fa-info"></i></a>
+                                                        </td>  
                                                     </tr>
                                     <?php 
                                                     $i++;    
@@ -104,18 +108,18 @@ $uri = service('uri');
                                         </tbody>
                                         <tfoot>
                                             <th class="col-sm-1">
-                                                    <input type="checkbox" id="chkall2" class="chkal2" value="1">
-                                                </th>
-                                                <th>Nama Vaksin</th>
-                                                <th>Kouta</th>
-                                                <th>Aksi</th>
+                                                <input type="checkbox" id="chkall2" class="chkal2" value="1">
+                                            </th>
+                                            <th>Nama Faskes</th>
+                                            <th>Jenis Faskes</th>
+                                            <th>Aksi</th>
                                         </tfoot>
                                     </table>    
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary" name="addbtn2" id="addbtn2" onclick='location.href="<?php echo site_url('info/vaksin/add/'.$faskes_id) ?>"'>Tambah Vaksin</button>
-                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn2" value="del">Hapus Vaksin</button>
-                                        </div>
+                                        <!-- <div class="col-md-12">
+                                            <button type="button" class="btn btn-primary" name="addbtn2" id="addbtn2" onclick='location.href="<?php echo site_url('info/add') ?>"'>Tambah Data Info Faskes</button>
+                                            <button type="submit" class="btn btn-danger delallbtn" name="delallbtn" id="delallbtn2" value="del">Hapus Info Faskes</button>
+                                        </div> -->
                                     </div>
                                 </form>
                                 <div class="modal fade" id="modal-delete">

@@ -321,6 +321,28 @@ class AjaxController extends BaseController
 		exit();
     }
 
+	public function delete_faskes_vaksin()
+	{
+		$infoModel = new \App\Models\infoModel();
+		$dat = $this->request->getPost();
+		
+		$hasil =$infoModel->delete_faskes_vaksin($dat["id"]);
+			if($hasil["is_error"]==0) {
+			echo json_encode(array(
+				"is_error" => 0,
+				"message" => $hasil["message"])
+			);
+		}
+		else {
+			echo json_encode(array(
+				"is_error" => 1,
+				"message" => $hasil["message"]
+			));
+		}
+	
+		exit();
+    }
+
 	public function delete_user()
 	{
 		$UsersModel = new \App\Models\UsersModel();

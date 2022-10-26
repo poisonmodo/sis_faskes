@@ -4,163 +4,137 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class SkripsiModel extends Model
+class InfoModel extends Model
 {
-    protected $table      = 'skripsi';
-    protected $primaryKey = 'id';
     
-    public function get_payment()
-    {
+    public function get_faskes_vaksin() {
         $db = \Config\Database::connect();
-        $sql = "SELECT 
-                    * 
-				FROM pembayaran 
-				LEFT JOIN mahasiswa ON mahasiswa.nim=pembayaran.nim";
+            $sql = "SELECT  
+                        *                
+                    FROM faskes_vaksins 
+                    LEFT JOIN vaksin ON vaksin.id=faskes_vaksins.vaksin_id   
+                    LEFT JOIN faskes ON faskes.id=faskes_vaksins.faskes_id
+                    GROUP BY faskes_vaksins.faskes_id
+                    ORDER BY faskes_vaksins.id";
         $query = $db->query($sql);
         $results = $query->getResult();
-        //print_r($results);    
-        return $results;
-    }     
-
-    public function delete_skripsi_dosen($skripsi_id,$id) {
-        $db = \Config\Database::connect();
-        $sql ="DELETE FROM skripsi_dosen
-               WHERE skripsi_id='".$skripsi_id."' 
-               AND id='".$id."';";
-        $db->query($sql);
-        $result = array(
-            "is_error" => 0,
-            "message" => "Data Skripsi berhasil dihapus"
-        );
-        return $result;
+        // print_r($results);
+        // exit
+        return $results;;
     }
 
-    public function edit_skripsi_dosen($data) {
+    public function get_vaksin($faskes_id) {
         $db = \Config\Database::connect();
-        $is_error=0;
-        $sql ="UPDATE skripsi_dosen SET
-                    `nik`='".$data["nik"]."',
-                    `posisi`='".$data["posisi"]."',
-                    `deskripsi`='".$data["deskripsi"]."'
-               WHERE skripsi_id='".$data["skripsi_id"]."'
-               AND id='".$data["id"]."'";
-        //print_r($sql);        
-        $db->query($sql);
-        $result = array(
-            "is_error" => $is_error,
-            "message" => "Dosen berhasil diupdate"
-        );
-        return $result;
+        $sql = "SELECT  
+                   faskes_vaksins.id, vaksin.*, faskes_vaksins.kouta                
+                FROM faskes_vaksins 
+                LEFT JOIN vaksin ON vaksin.id = faskes_vaksins.vaksin_id
+                WHERE faskes_vaksins.faskes_id='".$faskes_id."'    
+                ORDER BY faskes_vaksins.id";
+        $query = $db->query($sql);
+        $results = $query->getResult();
+        //print_r($results);
+        return $results;;
     }
 
-    public function add_skripsi_dosen($data) {
+    public function get_vaksin_detail($id) {
         $db = \Config\Database::connect();
-        $is_error=0;
-        $sql ="INSERT INTO skripsi_dosen SET
-                    `skripsi_id`='".$data["skripsi_id"]."',            
-                    `nik`='".$data["nik"]."',
-                    `posisi`='".$data["posisi"]."',
-                    `deskripsi`='".$data["deskripsi"]."'";
-        //print_r($sql);        
-        $db->query($sql);
-        $result = array(
-            "is_error" => $is_error,
-            "message" => "Dosen berhasil ditambahkan"
-        );
-        return $result;
-    }
-
-    public function get_skripsi_dosen_detail($skripsi_id,$id)
-    {
-        $db = \Config\Database::connect();
-        $sql = "SELECT 
-                   skripsi_dosen.*, dosen.nama_dosen  
-				FROM skripsi_dosen 
-				LEFT JOIN dosen ON dosen.nik=skripsi_dosen.nik
-                WHERE skripsi_dosen.skripsi_id='".$skripsi_id."'
-                AND skripsi_dosen.id";
-               
+        $sql = "SELECT  
+                    *
+                FROM faskes_vaksins
+                JOIN faskes ON faskes.id=faskes_vaksins.faskes_id
+                LEFT JOIN vaksin ON vaksin.id=faskes_vaksins.vaksin_id   
+                WHERE faskes_vaksins.id='".$id."'";
         $query = $db->query($sql);
         $results = $query->getRow();
+        //print_r($results);
         return $results;
     }
 
-    public function get_skripsi_dosen($id)
-    {
+    public function get_vaksin_name($id) {
         $db = \Config\Database::connect();
-        $sql = "SELECT 
-                   skripsi_dosen.*, dosen.nama_dosen  
-				FROM skripsi_dosen 
-				LEFT JOIN dosen ON dosen.nik=skripsi_dosen.nik
-                WHERE skripsi_dosen.skripsi_id='".$id."'";
-        $query = $db->query($sql);
-        $results = $query->getResult();
-        //print_r($results);    
-        return $results;
-    }
-
-    public function get_skripsi()
-    {
-        $db = \Config\Database::connect();
-        $sql = "SELECT 
-                   skripsi.*,mahasiswa.nama_lengkap  
-				FROM skripsi 
-				LEFT JOIN mahasiswa ON mahasiswa.nim=skripsi.nim";
-        $query = $db->query($sql);
-        $results = $query->getResult();
-        //print_r($results);    
-        return $results;
-    }
-
-    public function get_skripsi_detail($id)
-    {
-        $db = \Config\Database::connect();
-        $sql = "SELECT * FROM skripsi WHERE id ='".$id."'";
+        $sql = "SELECT  
+                    vaksin_name
+                FROM vaksin
+                WHERE id='".$id."'";
         $query = $db->query($sql);
         $results = $query->getRow();
+        //print_r($results);
+        return $results->vaksin_name;
+    }
+
+    public function add_faskes_vaksin($data) {
+        $db = \Config\Database::connect();
+        $is_error=0;
+        $fields="";
         
-        return $results;
+        $sql2 ="SElECT * FROM faskes_vaksins
+                LEFT JOIN faskes ON faskes.id=faskes_vaksins.faskes_id 
+                WHERE faskes_vaksins.faskes_id='".$data["faskes_id"]."'
+                AND faskes_vaksins.vaksin_id='".$data["vaksin_id"]."';";
+        $res = $db->query($sql2);
+        $tmp = $res->getResult();
+        
+        if(count($tmp)<1) {
+            $sql ="INSERT INTO faskes_vaksins SET
+                        faskes_id='".$data["faskes_id"]."', 
+                        vaksin_id='".$data["vaksin_id"]."',
+                        kouta='".$data["kouta"]."';";
+            $db->query($sql);
+            $result = array(
+                "is_error" => 0,
+                "message" => "Data vaksin berhasil ditambahkan"
+            );
+        }
+        else {            
+            
+            $q = $res->getRow();
+            $result = array(
+                "is_error" => 1,
+                "message" => "Data vaksin sudah ada di ".$q->faskes_name
+            );
+        }    
+        return $result;
     }
 
-    public function add_skripsi($data) {
+    public function edit_faskes_vaksin($data) {
         $db = \Config\Database::connect();
         $is_error=0;
-        $sql ="INSERT INTO skripsi SET
-                    `judul_skripsi`='".$db->escapeString($data["judul_skripsi"])."',            
-                    `nim`='".$data["nim"]."',
-                    `deskripsi`='".$data["deskripsi"]."'";
-        //print_r($sql);        
+        $fields="";
+        
+        $sql ="UPDATE faskes_vaksins SET
+                    faskes_id='".$data["faskes_id"]."', 
+                    vaksin_id='".$data["vaksin_id"]."' 
+               WHERE id='".$data["id"]."';";
+        //print_r($sql);       
         $db->query($sql);
         $result = array(
             "is_error" => $is_error,
-            "message" => "Data Skripsi berhasil ditambahkan"
+            "message" => "Data Vaksin berhasil diupdate"
         );
         return $result;
     }
 
-    public function edit_skripsi($data) {
+    public function delete_vaksin($id) {
         $db = \Config\Database::connect();
-        $is_error=0;
-        $sql ="UPDATE skripsi SET
-                    `judul_skripsi`='".$db->escapeString($data["judul_skripsi"])."',            
-                    `nim`='".$db->escapeString($data["nim"])."'
-                WHERE id='".$data["id"]."'";
-        $db->query($sql);
-        $result = array(
-            "is_error" => $is_error,
-            "message" => "Data Skripsi berhasil diupdate"
-        );
-        return $result;
-    }
-
-    public function delete_skripsi($id) {
-        $db = \Config\Database::connect();
-        $sql ="DELETE FROM skripsi
+        $sql ="DELETE FROM faskes_vaksins
                WHERE id='".$id."';";
         $db->query($sql);
         $result = array(
             "is_error" => 0,
-            "message" => "Data Skripsi berhasil dihapus"
+            "message" => "Data vaksin berhasil dihapus"
+        );
+        return $result;
+    }
+
+    public function delete_faskes_vaksin($id) {
+        $db = \Config\Database::connect();
+        $sql ="DELETE FROM faskes_vaksins
+               WHERE id='".$id."';";
+        $db->query($sql);
+        $result = array(
+            "is_error" => 0,
+            "message" => "Data vaksin berhasil dihapus"
         );
         return $result;
     }

@@ -61,9 +61,9 @@ $sess = $session->get('security');
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="<?php echo site_url('faskes/vaksin') ?>" class="nav-link">
+                    <a href="<?php echo site_url('info/faskes') ?>" class="nav-link">
                         <i class="fa fa-newspaper nav-icon"></i>
-                        <p>Vaksin</p>
+                        <p>Faskes</p>
                     </a>
                 </li>
             </ul>

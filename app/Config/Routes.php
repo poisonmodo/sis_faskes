@@ -35,7 +35,7 @@ $routes->group('ajax', function ($routes) {
 	$routes->add('checklist/mhs/count', 'AjaxController::get_mhs_checklist_count');
 	$routes->add('checklist/del', 'AjaxController::delete_checklist');
 	$routes->add('user/del', 'AjaxController::delete_user');
-	$routes->add('payment/del', 'AjaxController::delete_payment');
+	$routes->add('faskesvaksin/del', 'AjaxController::delete_faskes_vaksin');
 	$routes->add('faskes/del', 'AjaxController::delete_faskes');
 	$routes->add('student/nim', 'AjaxController::get_student_by_nim');
 	$routes->add('city/del', 'AjaxController::delete_city');
@@ -49,6 +49,13 @@ $routes->group('ajax', function ($routes) {
 $routes->group('export', function ($routes) {
 	$routes->add('xls/students', 'ExportController::get_students');
 	$routes->add('xls/ijazah', 'ExportController::get_student_ijazah');
+});
+
+$routes->group('info', function ($routes) {
+	$routes->add('faskes', 'InfoController::get_faskes_vaksin');
+	$routes->add('vaksin/list/(:num)', 'InfoController::get_vaksin/$1');
+	$routes->add('vaksin/add/(:num)', 'InfoController::add_vaksin/$1');
+	$routes->add('vaksin/edit/(:num)/(:num)', 'InfoController::edit_vaksin/$1/$2');
 });
 
 $routes->group('management', function ($routes) {
